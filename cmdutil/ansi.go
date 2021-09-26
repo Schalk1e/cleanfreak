@@ -25,7 +25,7 @@ func Green() (ansicode string) {
 
 }
 
-func Red() (ansicode string){
+func Red() (ansicode string) {
 	ansicode = "\033[31m"
 
 	return

@@ -1,10 +1,8 @@
 package cmd
 
 import (
-	"fmt"
-
-	core "github.com/Schalk1e/cleanfreak/core"
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
+	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
 )
 
@@ -17,16 +15,10 @@ principles of a clean workspace without taking any explicit action. The results 
 back to the user.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
-		var cyan = cmdutil.Cyan()
-		var green = cmdutil.Green()
-		var red = cmdutil.Red()
-		var bold = cmdutil.Bold()
-		var end = cmdutil.End()
-
 		if downDirEmpty() {
-			fmt.Println(bold + cyan + "Done: " + end + "No files in the Downloads folder." + green + "✔" + end)
+			cmdutil.PrintDiagnoseSuccess()
 		} else {
-			fmt.Println(bold + cyan + "Done: " + end + "No files in the Downloads folder." + red + "✘" + end)
+			cmdutil.PrintDiagnoseFail()
 		}
 	},
 }
