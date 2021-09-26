@@ -15,7 +15,7 @@ The principles command prints a list of the 10 guiding principles of Cleanfreak.
 		fmt.Println(
 			`
 1. No files in the Downloads folder.
-2. No icons on Desktop.
+2. No icons/files on Desktop.
 3. No empty files or folders.
 4. No large and unnecessary cache files. 
 5. No unnested files in Documents.
