@@ -6,7 +6,7 @@ An opinionated workspace organisation and cleaning utility.
 
 1. No files in the Downloads folder.
 2. No icons on Desktop.
-3. No empty files or folders. 
+3. No empty files or folders
 4. No large and unnecessary cache files. 
 5. No unnested files in Documents.
 6. Correct file types in associated folders.

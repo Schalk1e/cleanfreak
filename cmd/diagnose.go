@@ -15,13 +15,13 @@ principles of a clean workspace without taking any explicit action. The results 
 back to the user.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
-		if DirEmpty("Downloads") {
+		if core.DirEmpty("Downloads") {
 			cmdutil.PrintDiagnoseSuccess("No files in the Downloads folder.")
 		} else {
 			cmdutil.PrintDiagnoseFail("No files in the Downloads folder.")
 		}
 
-		if DirEmpty("Desktop") {
+		if core.DirEmpty("Desktop") {
 			cmdutil.PrintDiagnoseSuccess("No icons/files on Desktop.")
 		} else {
 			cmdutil.PrintDiagnoseFail("No icons/files on Desktop.")
@@ -31,13 +31,4 @@ back to the user.`,
 
 func init() {
 	rootCmd.AddCommand(diagnoseCmd)
-}
-
-func DirEmpty(dir_type string) (is_empty bool) {
-	var dir string
-
-	dir = core.Dir(dir_type)
-	is_empty = core.IsEmpty(dir)
-
-	return
 }

@@ -1,0 +1,36 @@
+package cmd
+
+import (
+	"os"
+
+	"github.com/spf13/cobra"
+)
+
+// initCmd represents the init command
+var initCmd = &cobra.Command{
+	Use:   "init",
+	Short: "Initialise a cleanfreak folder.",
+	Long: `This command will initialise a default cleanfreak folder in the specified
+	location that contains a number of subfolders that are intended to provide appropriate homes
+	for most filetypes.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		base_dir, _ := cmd.Flags().GetString("path")
+
+		if base_dir == "" {
+			homedir, err := os.UserHomeDir()
+			if err != nil {
+				panic(err)
+			} else {
+				os.Mkdir(homedir+"/cleanfreak", 0755)
+			}
+		} else {
+			os.Mkdir(base_dir+"/cleanfreak", 0755)
+		}
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(initCmd)
+
+	initCmd.Flags().String("path", "", "Path at which to create cleanfreak directory (Default is Home).")
+}

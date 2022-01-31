@@ -17,3 +17,12 @@ func Dir(dir_type string) (dir string) {
 	dir = homedir + "/" + dir_type
 	return
 }
+
+func DirEmpty(dir_type string) (is_empty bool) {
+	var dir string
+
+	dir = Dir(dir_type)
+	is_empty = IsEmpty(dir)
+
+	return
+}
