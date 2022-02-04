@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"os"
+	"path"
 )
 
 func Dir(dir_type string) (dir string) {
@@ -25,4 +26,32 @@ func DirEmpty(dir_type string) (is_empty bool) {
 	is_empty = IsEmpty(dir)
 
 	return
+}
+
+func DirExists(dir string) (exists bool) {
+	_, err := os.Stat(dir)
+	if err != nil {
+		exists = false
+	} else {
+		exists = true
+	}
+	return
+}
+
+func DirAdd(base_dir string, dirs []string) {
+	cf_root := "cleanfreak" // Get this from config...
+	var fpath string
+
+	if DirExists(cf_root) {
+		response := fmt.Sprintf("Already contains a directory named %s!", cf_root)
+		fmt.Println(response)
+	} else {
+		for _, dir := range dirs {
+			fpath = path.Join(base_dir, cf_root, dir)
+			err := os.MkdirAll(fpath, 0755)
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+	}
 }

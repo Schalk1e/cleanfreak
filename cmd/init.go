@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 
+	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
 )
 
@@ -16,15 +17,17 @@ var initCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		base_dir, _ := cmd.Flags().GetString("path")
 
+		subdir := []string{"personal", "work"}
+		// What happens if these already exist? MkdirAll will return nil. Be verbose about this...
 		if base_dir == "" {
 			homedir, err := os.UserHomeDir()
 			if err != nil {
 				panic(err)
 			} else {
-				os.Mkdir(homedir+"/cleanfreak", 0755)
+				core.DirAdd(homedir, subdir)
 			}
 		} else {
-			os.Mkdir(base_dir+"/cleanfreak", 0755)
+			core.DirAdd(base_dir, subdir)
 		}
 	},
 }
