@@ -38,20 +38,15 @@ func DirExists(dir string) (exists bool) {
 	return
 }
 
-func DirAdd(base_dir string, dirs []string) {
-	cf_root := "cleanfreak" // Get this from config...
+func DirsAdd(base_dir string, dirs []string) {
 	var fpath string
 
-	if DirExists(cf_root) {
-		response := fmt.Sprintf("Already contains a directory named %s!", cf_root)
-		fmt.Println(response)
-	} else {
-		for _, dir := range dirs {
-			fpath = path.Join(base_dir, cf_root, dir)
-			err := os.MkdirAll(fpath, 0755)
-			if err != nil {
-				fmt.Println(err)
-			}
+	for _, dir := range dirs {
+		fpath = path.Join(base_dir, dir)
+		err := os.MkdirAll(fpath, 0755)
+		if err != nil {
+			fmt.Println(err)
 		}
 	}
+
 }
