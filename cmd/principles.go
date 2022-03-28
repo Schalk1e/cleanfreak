@@ -8,7 +8,7 @@ import (
 
 var principlesCmd = &cobra.Command{
 	Use:   "principles",
-	Short: "Returns 10 guiding principles of Cleanfreak.",
+	Short: "Returns 7 guiding principles of Cleanfreak.",
 	Long: `
 The principles command prints a list of the 10 guiding principles of Cleanfreak.`,
 	Run: func(cmd *cobra.Command, args []string) {

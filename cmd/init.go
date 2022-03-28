@@ -11,7 +11,6 @@ import (
 
 var rerun bool
 
-// initCmd represents the init command
 var initCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Initialise a cleanfreak folder.",
@@ -23,7 +22,7 @@ var initCmd = &cobra.Command{
 		base_dir, _ := cmd.Flags().GetString("path")
 		rerun, _ := cmd.Flags().GetBool("rerun")
 
-		if core.DirExists(cf_root) && !rerun { // and not rerun
+		if core.DirExists(cf_root) && !rerun {
 			response := fmt.Sprintf("Already contains a directory named %s!", cf_root)
 			fmt.Println(response)
 			os.Exit(1)
