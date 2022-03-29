@@ -5,8 +5,8 @@ import (
 	"github.com/spf13/cobra"
 	"os"
 
-	"github.com/spf13/viper"
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
+	"github.com/spf13/viper"
 )
 
 var cfgFile string
@@ -71,7 +71,7 @@ func initConfig() {
 		// write .cleanfreak.yaml and read.
 		fmt.Println("Creating default config file in home directory.")
 
-		cmdutil.buildConfig(home)
+		cmdutil.BuildConfig(home)
 		viper.ReadInConfig()
 	}
 }

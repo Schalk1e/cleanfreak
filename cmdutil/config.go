@@ -14,7 +14,7 @@ type Settings struct {
 	Subdirs   [2]string
 }
 
-func buildConfig(dir string) {
+func BuildConfig(dir string) {
 	var fpath string
 
 	fpath = path.Join(dir, ".cleanfreak.yaml")
@@ -24,7 +24,7 @@ func buildConfig(dir string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err2 := ioutil.WriteFile(fpath, data, 0)
+	err2 := ioutil.WriteFile(fpath, data, 0666)
 	if err2 != nil {
 		log.Fatal(err2)
 	}
