@@ -7,6 +7,7 @@ import (
 
 	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var rerun bool
@@ -18,26 +19,32 @@ var initCmd = &cobra.Command{
 	location that contains a number of subfolders that are intended to provide appropriate homes
 	for most filetypes.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		cf_root := "cleanfreak" // Get this from config...
+		cf_root := viper.Get("directory")
 		base_dir, _ := cmd.Flags().GetString("path")
 		rerun, _ := cmd.Flags().GetBool("rerun")
 
-		if core.DirExists(cf_root) && !rerun {
+		str, ok := cf_root.(string)
+		if !ok {
+			panic("Error - could not find cf_root in config.")
+		}
+
+		if core.DirExists(str) && !rerun {
 			response := fmt.Sprintf("Already contains a directory named %s!", cf_root)
 			fmt.Println(response)
 			os.Exit(1)
 		}
 
-		subdirs := []string{"personal", "work"} // Get this from config...
+		subdirs := viper.GetStringSlice("subdirs")
 		if base_dir == "" {
 			homedir, err := os.UserHomeDir()
+
 			if err != nil {
 				panic(err)
 			} else {
-				core.DirsAdd(path.Join(homedir, cf_root), subdirs)
+				core.DirsAdd(path.Join(homedir, str), subdirs)
 			}
 		} else {
-			core.DirsAdd(path.Join(base_dir, cf_root), subdirs)
+			core.DirsAdd(path.Join(base_dir, str), subdirs)
 		}
 	},
 }

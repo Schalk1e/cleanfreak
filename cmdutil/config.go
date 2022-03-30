@@ -19,7 +19,7 @@ func BuildConfig(dir string) {
 
 	fpath = path.Join(dir, ".cleanfreak.yaml")
 
-	config := Settings{Directory: "cleanfreak", Subdirs: [2]string{"personal", "work"}}
+	config := Settings{Directory: "cleanfreak", Subdirs: [2]string{"Personal", "Work"}}
 	data, err := yaml.Marshal(&config)
 	if err != nil {
 		log.Fatal(err)
