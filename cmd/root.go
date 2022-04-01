@@ -12,7 +12,7 @@ import (
 var cfgFile string
 
 var rootCmd = &cobra.Command{
-	Use:   "cleanfreak",
+	Use:   "cf",
 	Short: "Welcome to Cleanfreak! An opinionated workspace organisation and cleaning utility.",
 	Long: `
 
@@ -27,9 +27,7 @@ Welcome to Cleanfreak! An opinionated workspace organisation and cleaning
 utility. We ascribe to 7 guiding principles of a clean workspace. To see 
 them run:
 
-$ cleanfreak list principles 
-
-We can't get the trash out of the ocean - let's get it off our PC's! ✨🖥️✨`,
+$ cf list principles`,
 }
 
 func Execute() {
