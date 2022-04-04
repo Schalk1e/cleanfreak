@@ -8,12 +8,12 @@ import (
 
 var downloadsCmd = &cobra.Command{
 	Use:   "downloads",
-	Short: "Executes cf clean procedure on the downloads folder.",
+	Short: "Runs cleanfreak on the downloads folder.",
 	Long: `This command will clean the user's downloads folder by prompting the user
 	to either transfer those files to the appropriate location in the cleanfreak project directory,
 	or remove them.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("downloads called")
+		fmt.Println("Downloads called")
 	},
 }
 

@@ -23,3 +23,16 @@ func PrintDiagnoseFail(msg string) {
 	fmt.Println("\n" + bold + cyan + "Done: " + end + msg)
 	fmt.Println("╰-" + red + "✘ Failed" + end)
 }
+
+func PrintArrows(msgs []string) {
+	var blue = Cyan()
+	var end = End()
+
+	for i, msg := range msgs {
+		if i == 0 {
+			fmt.Println("\n" + blue + "⮕ " + end + msg)
+		} else {
+			fmt.Println(blue + "⮕ " + end + msg)
+		}
+	}
+}

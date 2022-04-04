@@ -1,8 +1,7 @@
 package cmd
 
 import (
-	"fmt"
-
+	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
 	"github.com/spf13/cobra"
 )
 
@@ -12,15 +11,11 @@ var principlesCmd = &cobra.Command{
 	Long: `
 The principles command prints a list of the 10 guiding principles of Cleanfreak.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println(
-			`
-1. No files in the Downloads folder.
-2. No icons/files on Desktop.
-3. No empty files or folders.
-4. No large and unnecessary cache files. 
-5. No unnested files in Documents.
-6. Correct file types in associated folders.
-7. An empty trash bin.`)
+
+		plst := []string{"No files in the Downloads folder.", "No icons/files on Desktop.", "No empty files or folders.", "No large and unnecessary cache files.", "No unnested files in Documents.", "Correct file types in associated folders.", "An empty trash bin."}
+
+		cmdutil.PrintArrows(plst)
+
 	},
 }
 
