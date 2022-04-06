@@ -18,7 +18,7 @@ var downloadsCmd = &cobra.Command{
 	to either transfer those files to the appropriate location in the cleanfreak project directory,
 	or remove them.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// Always relative to home!
+		// Always relative to home! Think abt this a little more carefully.
 		homedir, err := os.UserHomeDir() // Add error handling.
 		cf_root := viper.Get("directory")
 

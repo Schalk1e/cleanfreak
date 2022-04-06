@@ -22,7 +22,7 @@ var initCmd = &cobra.Command{
 		cf_root := viper.Get("directory")
 		base_dir, _ := cmd.Flags().GetString("path")
 		rerun, _ := cmd.Flags().GetBool("rerun")
-
+		x
 		str, ok := cf_root.(string)
 		if !ok {
 			panic("Error - could not find cf_root in config.")
