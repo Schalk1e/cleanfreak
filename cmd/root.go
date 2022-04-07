@@ -24,10 +24,9 @@ var rootCmd = &cobra.Command{
 																	 
 
 Welcome to Cleanfreak! An opinionated workspace organisation and cleaning 
-utility. We ascribe to 7 guiding principles of a clean workspace. To see 
-them run:
+utility. 
 
-$ cf list principles`,
+$ cf list items`,
 }
 
 func Execute() {

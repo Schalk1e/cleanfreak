@@ -21,6 +21,7 @@ var downloadsCmd = &cobra.Command{
 		// Always relative to home! Think abt this a little more carefully.
 		homedir, err := os.UserHomeDir() // Add error handling.
 		cf_root := viper.Get("directory")
+		diagnose_text := "No files in the Downloads folder."
 
 		if err != nil {
 			panic(err)
@@ -28,25 +29,25 @@ var downloadsCmd = &cobra.Command{
 
 		str, ok := cf_root.(string)
 		if !ok {
-			fmt.Println("\n🚨 Error - could not find cf_root in config.")
+			fmt.Println("Could not find cf_root in config.")
+			return
+		}
+
+		// Does project directory exist?
+		if !core.DirExists(path.Join(homedir, str)) {
+			fmt.Println("Could not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
 			return
 		}
 
 		// Check whether diagnose passes.
 		if core.DirEmpty("Downloads") {
-			cmdutil.PrintDiagnoseSuccess("No files in the Downloads folder.")
+			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
 			return
 		}
 
 		// If not, initialise cleanfreak process.
-		cmdutil.PrintDiagnoseFail("No files in the Downloads folder.")
-
-		// Does project directory exist?
-		if !core.DirExists(path.Join(homedir, str)) {
-			fmt.Println("\n🚨 Error - could not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
-			return
-		}
+		cmdutil.PrintDiagnoseFail(diagnose_text)
 
 	},
 }
