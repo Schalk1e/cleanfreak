@@ -39,18 +39,19 @@ func IsEmpty(dir string) bool {
 }
 
 type Clean struct {
-	SourceDir string
-	TargetDir string
+	SourceFile string
+	TargetFile string
 }
 
 func (clean *Clean) FileTransfer() {
-	source_dir := clean.SourceDir
+	source_file := clean.SourceFile
+	target_file := clean.TargetFile
 
-	fmt.Printf("File moved from %s", source_dir)
+	fmt.Printf("File moved from %s to %s", source_file, target_file)
 }
 
 func (clean *Clean) FileDelete() {
-	source_dir := clean.SourceDir
+	source_file := clean.SourceFile
 
-	fmt.Printf("File deleted from %s", source_dir)
+	fmt.Printf("File deleted from %s", source_file)
 }

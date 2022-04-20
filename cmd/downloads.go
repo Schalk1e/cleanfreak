@@ -50,29 +50,37 @@ var downloadsCmd = &cobra.Command{
 		cmdutil.PrintDiagnoseFail(diagnose_text)
 
 		// Call file-cleaning function.
-		CleanDownloads()
+		CleanDownloads(str)
 
 	},
 }
 
-func CleanDownloads() {
-
-	c := core.Clean{
-		SourceDir: "/Users/schalkvisagie/Downloads",
-		TargetDir: "/Users/schalkvisagie/cleanfreak",
+func CleanDownloads(target string) {
+	// Find home.
+	homedir, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
 	}
+	// Initialise clean struct.
+	c := core.Clean{}
 
 	var prompt string
 	var files []string
+	downloads := path.Join(homedir, "Downloads")
 
-	files = core.List("/Users/schalkvisagie/Downloads")
+	// Start cf process.
+	files = core.List(downloads)
 	for _, file := range files[1:] {
 		// Get user prompt about file and run clean or delete.
 		fmt.Printf("Would you like to move or delete the file: %s? (M/D)", file)
 		fmt.Scanln(&prompt)
 		if prompt == "M" {
+			c.SourceFile = file
+			// Start target select here.
+			c.TargetFile = cmdutil.DirSelect(target)
 			c.FileTransfer()
 		} else if prompt == "D" {
+			c.SourceFile = file
 			c.FileDelete()
 		}
 	}
