@@ -35,7 +35,7 @@ var downloadsCmd = &cobra.Command{
 
 		// Does project directory exist?
 		if !core.DirExists(path.Join(homedir, str)) {
-			fmt.Println("Could not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
+			fmt.Println("\n Could not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
 			return
 		}
 
@@ -49,7 +49,34 @@ var downloadsCmd = &cobra.Command{
 		// If not, initialise cleanfreak process.
 		cmdutil.PrintDiagnoseFail(diagnose_text)
 
+		// Call file-cleaning function.
+		CleanDownloads()
+
 	},
+}
+
+func CleanDownloads() {
+
+	c := core.Clean{
+		SourceDir: "/Users/schalkvisagie/Downloads",
+		TargetDir: "/Users/schalkvisagie/cleanfreak",
+	}
+
+	var prompt string
+	var files []string
+
+	files = core.List("/Users/schalkvisagie/Downloads")
+	for _, file := range files[1:] {
+		// Get user prompt about file and run clean or delete.
+		fmt.Printf("Would you like to move or delete the file: %s? (M/D)", file)
+		fmt.Scanln(&prompt)
+		if prompt == "M" {
+			c.FileTransfer()
+		} else if prompt == "D" {
+			c.FileDelete()
+		}
+	}
+
 }
 
 func init() {

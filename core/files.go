@@ -37,3 +37,20 @@ func IsEmpty(dir string) bool {
 		return false
 	}
 }
+
+type Clean struct {
+	SourceDir string
+	TargetDir string
+}
+
+func (clean *Clean) FileTransfer() {
+	source_dir := clean.SourceDir
+
+	fmt.Printf("File moved from %s", source_dir)
+}
+
+func (clean *Clean) FileDelete() {
+	source_dir := clean.SourceDir
+
+	fmt.Printf("File deleted from %s", source_dir)
+}
