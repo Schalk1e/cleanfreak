@@ -49,3 +49,7 @@ func DirsAdd(base_dir string, dirs []string) {
 	}
 
 }
+
+func DirSelect(dir string) string {
+	return dir
+}

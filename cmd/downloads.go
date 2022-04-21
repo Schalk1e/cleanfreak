@@ -77,7 +77,7 @@ func CleanDownloads(target string) {
 		if prompt == "M" {
 			c.SourceFile = file
 			// Start target select here.
-			c.TargetFile = cmdutil.DirSelect(target)
+			c.TargetFile = core.DirSelect(target)
 			c.FileTransfer()
 		} else if prompt == "D" {
 			c.SourceFile = file
