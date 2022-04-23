@@ -72,7 +72,8 @@ func CleanDownloads(target string) {
 	files = core.List(downloads)
 	for _, file := range files[1:] {
 		// Get user prompt about file and run clean or delete.
-		fmt.Printf("Would you like to move or delete the file: %s? (M/D)", file)
+		filestr := fmt.Sprintf("Would you like to move or delete the file: %s? (M/D)", path.Base(file))
+		cmdutil.PrintPrompt(filestr)
 		fmt.Scanln(&prompt)
 		if prompt == "M" {
 			c.SourceFile = file
