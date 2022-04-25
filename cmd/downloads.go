@@ -5,6 +5,7 @@ import (
 	"os"
 	"path"
 
+	"github.com/AlecAivazis/survey/v2"
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
 	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
@@ -33,59 +34,72 @@ var downloadsCmd = &cobra.Command{
 			return
 		}
 
-		// Does project directory exist?
 		if !core.DirExists(path.Join(homedir, str)) {
 			fmt.Println("\n Could not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
 			return
 		}
 
-		// Check whether diagnose passes.
 		if core.DirEmpty("Downloads") {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
 			return
 		}
 
-		// If not, initialise cleanfreak process.
 		cmdutil.PrintDiagnoseFail(diagnose_text)
 
-		// Call file-cleaning function.
 		CleanDownloads(str)
 
 	},
 }
 
 func CleanDownloads(target string) {
-	// Find home.
+
 	homedir, err := os.UserHomeDir()
 	if err != nil {
 		panic(err)
 	}
-	// Initialise clean struct.
-	c := core.Clean{}
 
-	var prompt string
 	var files []string
 	downloads := path.Join(homedir, "Downloads")
 
-	// Start cf process.
 	files = core.List(downloads)
+
 	for _, file := range files[1:] {
-		// Get user prompt about file and run clean or delete.
-		filestr := fmt.Sprintf("Would you like to move or delete the file: %s? (M/D)", path.Base(file))
-		cmdutil.PrintPrompt(filestr)
-		fmt.Scanln(&prompt)
-		if prompt == "M" {
+
+		filename := path.Base(file)
+		c := core.Clean{}
+
+		actionSurvey := []*survey.Question{
+			{
+				Name: "action",
+				Prompt: &survey.Select{
+					Message: fmt.Sprintf("Select action to take on file %s:", filename),
+					Options: []string{
+						"Move",
+						"Delete",
+						"Stop",
+					},
+				},
+			},
+		}
+
+		action := struct {
+			Action string
+		}{}
+
+		survey.Ask(actionSurvey, &action)
+
+		if action.Action == "Move" {
 			c.SourceFile = file
-			// Start target select here.
 			c.TargetFile = core.DirSelect(target)
 			c.FileTransfer()
-		} else if prompt == "D" {
+		} else if action.Action == "Delete" {
 			c.SourceFile = file
 			c.FileDelete()
+		} else {
+			break
 		}
 	}
-
 }
 
 func init() {
