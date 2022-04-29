@@ -5,7 +5,6 @@ import (
 	"os"
 	"path"
 
-	"github.com/AlecAivazis/survey/v2"
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
 	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
@@ -62,38 +61,20 @@ func CleanDownloads(target string) {
 	var files []string
 	downloads := path.Join(homedir, "Downloads")
 
-	files = core.List(downloads)
+	files = core.List(downloads, false)
 
 	for _, file := range files[1:] {
 
 		filename := path.Base(file)
 		c := core.Clean{}
 
-		actionSurvey := []*survey.Question{
-			{
-				Name: "action",
-				Prompt: &survey.Select{
-					Message: fmt.Sprintf("Select action to take on file %s:", filename),
-					Options: []string{
-						"Move",
-						"Delete",
-						"Stop",
-					},
-				},
-			},
-		}
+		action := cmdutil.FileSurvey(filename)
 
-		action := struct {
-			Action string
-		}{}
-
-		survey.Ask(actionSurvey, &action)
-
-		if action.Action == "Move" {
+		if action == "Move" {
 			c.SourceFile = file
-			c.TargetFile = core.DirSelect(target)
+			c.TargetFile = core.DirSurvey(path.Join(homedir, target))
 			c.FileTransfer()
-		} else if action.Action == "Delete" {
+		} else if action == "Delete" {
 			c.SourceFile = file
 			c.FileDelete()
 		} else {

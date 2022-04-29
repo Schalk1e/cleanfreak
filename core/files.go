@@ -12,13 +12,17 @@ func main() {
 	var dirs []string
 
 	docs = homedir + "/Documents"
-	dirs = List(docs)
+	dirs = List(docs, false)
 	fmt.Println(dirs)
 }
 
-func List(dir string) (files []string) {
+func List(dir string, only_dirs bool) (files []string) {
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
-		files = append(files, path)
+		if info.IsDir() {
+			files = append(files, path)
+		} else if !info.IsDir() && !only_dirs {
+			files = append(files, path)
+		}
 		return nil
 	})
 	if err != nil {
@@ -30,7 +34,7 @@ func List(dir string) (files []string) {
 func IsEmpty(dir string) bool {
 	var f_arr []string
 
-	f_arr = List(dir)
+	f_arr = List(dir, false)
 	if len(f_arr) == 1 {
 		return true
 	} else {

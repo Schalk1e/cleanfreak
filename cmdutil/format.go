@@ -36,11 +36,3 @@ func PrintArrows(msgs []string) {
 		}
 	}
 }
-
-func PrintPrompt(msg string) {
-	var blue = Cyan()
-	var end = End()
-	var bold = Bold()
-
-	fmt.Println("\n" + bold + blue + "?" + end + " " + msg)
-}
