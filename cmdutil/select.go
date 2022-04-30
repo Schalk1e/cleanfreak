@@ -26,6 +26,7 @@ func FileSurvey(filename string) string {
 		Action string
 	}{}
 
+	fmt.Println("")
 	survey.Ask(actionSurvey, &action)
 
 	return action.Action

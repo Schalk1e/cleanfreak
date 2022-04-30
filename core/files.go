@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
 )
 
 func main() {
@@ -51,11 +53,21 @@ func (clean *Clean) FileTransfer() {
 	source_file := clean.SourceFile
 	target_file := clean.TargetFile
 
-	fmt.Printf("File moved from %s to %s\n", source_file, target_file)
+	err := os.Rename(source_file, target_file)
+	if err != nil {
+		panic(err)
+	}
+
+	cmdutil.PrintMoved()
 }
 
 func (clean *Clean) FileDelete() {
 	source_file := clean.SourceFile
 
-	fmt.Printf("File deleted from %s\n", source_file)
+	err := os.Remove(source_file)
+	if err != nil {
+		panic(err)
+	}
+
+	cmdutil.PrintDeleted()
 }

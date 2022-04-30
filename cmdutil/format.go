@@ -36,3 +36,17 @@ func PrintArrows(msgs []string) {
 		}
 	}
 }
+
+func PrintMoved() {
+	var green = Green()
+	var end = End()
+
+	fmt.Println("╰-" + green + "✔ Moved" + end)
+}
+
+func PrintDeleted() {
+	var green = Green()
+	var end = End()
+
+	fmt.Println("╰-" + green + "✔ Removed" + end)
+}
