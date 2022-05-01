@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"os"
 	"path"
-
-	"github.com/AlecAivazis/survey/v2"
 )
 
 func Dir(dir_type string) (dir string) {
@@ -50,26 +48,4 @@ func DirsAdd(base_dir string, dirs []string) {
 		}
 	}
 
-}
-
-func DirSurvey(dir string) string {
-
-	opts := List(dir, true)
-	dirSurvey := []*survey.Question{
-		{
-			Name: "dir",
-			Prompt: &survey.Select{
-				Message: fmt.Sprintf("Select target:"),
-				Options: opts,
-			},
-		},
-	}
-
-	target := struct {
-		Dir string
-	}{}
-
-	survey.Ask(dirSurvey, &dir)
-
-	return target.Dir
 }

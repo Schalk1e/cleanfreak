@@ -31,3 +31,36 @@ func FileSurvey(filename string) string {
 
 	return action.Action
 }
+
+func DirSurvey(opts []string) string {
+
+	dirSurvey := []*survey.Question{
+		{
+			Name: "dir",
+			Prompt: &survey.Select{
+				Message: fmt.Sprintf("Select target:"),
+				Options: opts,
+			},
+		},
+	}
+
+	target := struct {
+		Dir string
+	}{}
+
+	survey.Ask(dirSurvey, &target)
+
+	return target.Dir
+}
+
+func FileNameSurvey() string {
+
+	name := ""
+	prompt := &survey.Input{
+		Message: "Please enter filename: ",
+	}
+
+	survey.AskOne(prompt, &name)
+
+	return name
+}

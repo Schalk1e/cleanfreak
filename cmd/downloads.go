@@ -71,12 +71,21 @@ func CleanDownloads(target string) {
 		action := cmdutil.FileSurvey(filename)
 
 		if action == "Move" {
+
+			opts := core.List(path.Join(homedir, target), true)
+
+			folder := cmdutil.DirSurvey(opts)
+			name := cmdutil.FileNameSurvey()
+
 			c.SourceFile = file
-			c.TargetFile = core.DirSurvey(path.Join(homedir, target))
+			c.TargetFile = path.Join(folder, name)
 			c.FileTransfer()
+
 		} else if action == "Delete" {
+
 			c.SourceFile = file
 			c.FileDelete()
+
 		} else {
 			break
 		}
