@@ -11,7 +11,7 @@ var all bool
 
 var cleanCmd = &cobra.Command{
 	Use:   "clean",
-	Short: "Initialises clean procedure for the specified item. (--all for all items).",
+	Short: "Initialises clean procedure for the specified item.",
 	Long:  `This command will call the cleaning procedure for the specified item.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Clean called.")
