@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +10,8 @@ var allCmd = &cobra.Command{
 	Long: `This command will execute the cleanfreak process over all items 
 	listed by cleanfreak list items.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("All called")
+		desktopCmd.Run(cmd, args)
+		downloadsCmd.Run(cmd, args)
 	},
 }
 
