@@ -16,6 +16,7 @@ func FileSurvey(filename string) string {
 				Options: []string{
 					"Move",
 					"Delete",
+					"View",
 					"Stop",
 				},
 			},
