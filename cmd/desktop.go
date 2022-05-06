@@ -7,6 +7,7 @@ import (
 
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
 	core "github.com/Schalk1e/cleanfreak/core"
+	"github.com/skratchdot/open-golang/open"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -60,14 +61,13 @@ func CleanDesktop(target string) {
 		panic(err)
 	}
 
-	var files []string
 	desktop := path.Join(homedir, "Desktop")
 
-	files = core.List(desktop, false)
+	files := core.List(desktop, false)
 
-	for _, file := range files[1:] {
+	for i := 1; i < len(files); i++ {
 
-		filename := path.Base(file)
+		filename := path.Base(files[i])
 		c := core.Clean{}
 
 		action := cmdutil.FileSurvey(filename)
@@ -79,14 +79,19 @@ func CleanDesktop(target string) {
 			folder := cmdutil.DirSurvey(opts)
 			name := cmdutil.FileNameSurvey()
 
-			c.SourceFile = file
+			c.SourceFile = files[i]
 			c.TargetFile = path.Join(folder, name)
 			c.FileTransfer()
 
 		} else if action == "Delete" {
 
-			c.SourceFile = file
+			c.SourceFile = files[i]
 			c.FileDelete()
+
+		} else if action == "View" {
+
+			open.Run(files[i])
+			i = i - 1
 
 		} else {
 			break
