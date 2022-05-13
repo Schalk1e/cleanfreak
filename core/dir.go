@@ -7,8 +7,8 @@ import (
 )
 
 func Dir(dir_type string) (dir string) {
-	if dir_type != "Downloads" && dir_type != "Documents" && dir_type != "Desktop" {
-		panic("Error: dir_type must be one of 'Downloads' or 'Documents' or 'Desktop'.")
+	if dir_type != "Downloads" && dir_type != "Desktop" {
+		panic("Error: dir_type must be one of 'Downloads' or 'Desktop'.")
 	}
 	homedir, err := os.UserHomeDir()
 	if err != nil {
