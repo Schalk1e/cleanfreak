@@ -26,6 +26,8 @@ project directory, or remove them.`,
 		cf_root := viper.Get("directory")
 		diagnose_text := "No files in the Downloads folder."
 
+		d := core.Dir{}
+
 		if err != nil {
 			panic(err)
 		}
@@ -41,7 +43,7 @@ project directory, or remove them.`,
 			return
 		}
 
-		if core.DirEmpty("Downloads") {
+		if core.DirEmpty(d.GetDownloads()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
 			return

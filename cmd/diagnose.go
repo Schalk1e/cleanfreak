@@ -15,13 +15,15 @@ shown by cf list items without taking any explicit action. The results will be r
 back to the user.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
-		if core.DirEmpty("Downloads") {
+		d := core.Dir{}
+
+		if core.DirEmpty(d.GetDownloads()) {
 			cmdutil.PrintDiagnoseSuccess("No files in the Downloads folder.")
 		} else {
 			cmdutil.PrintDiagnoseFail("No files in the Downloads folder.")
 		}
 
-		if core.DirEmpty("Desktop") {
+		if core.DirEmpty(d.GetDesktop()) {
 			cmdutil.PrintDiagnoseSuccess("No icons/files on Desktop.")
 		} else {
 			cmdutil.PrintDiagnoseFail("No icons/files on Desktop.")

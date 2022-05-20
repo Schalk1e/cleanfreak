@@ -41,7 +41,9 @@ project directory, or remove them.`,
 			return
 		}
 
-		if core.DirEmpty("Desktop") {
+		d := core.Dir{}
+
+		if core.DirEmpty(d.GetDesktop()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
 			return

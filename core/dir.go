@@ -6,22 +6,37 @@ import (
 	"path"
 )
 
-func Dir(dir_type string) (dir string) {
-	if dir_type != "Downloads" && dir_type != "Desktop" {
-		panic("Error: dir_type must be one of 'Downloads' or 'Desktop'.")
-	}
+type Dir struct {
+	OS string
+}
+
+func (dir *Dir) GetDownloads() (downloads string) {
 	homedir, err := os.UserHomeDir()
 	if err != nil {
 		panic(err)
 	}
-	dir = homedir + "/" + dir_type
+	downloads = homedir + "/Downloads"
 	return
 }
 
-func DirEmpty(dir_type string) (is_empty bool) {
-	var dir string
+func (dir *Dir) GetDesktop() (desktop string) {
+	homedir, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
+	}
+	desktop = homedir + "/Desktop"
+	return
+}
 
-	dir = Dir(dir_type)
+func (dir *Dir) GetTrash() {
+	os := dir.OS
+
+	if os == "Mac" {
+		fmt.Println("Return Trash")
+	}
+}
+
+func DirEmpty(dir string) (is_empty bool) {
 	is_empty = IsEmpty(dir)
 
 	return
