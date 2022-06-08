@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"runtime"
 
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
 	core "github.com/Schalk1e/cleanfreak/core"
@@ -16,9 +17,12 @@ var trashCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		// Always relative to home! Think abt this a little more carefully.
 		// homedir, err := os.UserHomeDir() // Add error handling.
-		diagnose_text := "No files in the Downloads folder."
+		diagnose_text := "No files in the Trash folder."
 
-		if core.DirEmpty("Trash") {
+		d := core.Dir{}
+		d.OS = runtime.GOOS
+
+		if core.DirEmpty(d.GetTrash()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
 			return

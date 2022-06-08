@@ -1,6 +1,9 @@
 package cmd
 
 import (
+	"fmt"
+	"runtime"
+
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
 	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
@@ -16,17 +19,19 @@ back to the user.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		d := core.Dir{}
+		d.OS = runtime.GOOS
 
-		if core.DirEmpty(d.GetDownloads()) {
-			cmdutil.PrintDiagnoseSuccess("No files in the Downloads folder.")
-		} else {
-			cmdutil.PrintDiagnoseFail("No files in the Downloads folder.")
-		}
+		dirs := [3]string{d.GetDownloads(), d.GetDesktop(), d.GetTrash()}
+		dirnames := [3]string{"Downloads", "Desktop", "Trash"}
 
-		if core.DirEmpty(d.GetDesktop()) {
-			cmdutil.PrintDiagnoseSuccess("No icons/files on Desktop.")
-		} else {
-			cmdutil.PrintDiagnoseFail("No icons/files on Desktop.")
+		for indx, dir := range dirs {
+			if core.DirEmpty((dir)) {
+				text := fmt.Sprintf("No files in the %s folder.", dirnames[indx])
+				cmdutil.PrintDiagnoseSuccess(text)
+			} else {
+				text := fmt.Sprintf("No files in the %s folder.", dirnames[indx])
+				cmdutil.PrintDiagnoseFail(text)
+			}
 		}
 	},
 }

@@ -28,12 +28,16 @@ func (dir *Dir) GetDesktop() (desktop string) {
 	return
 }
 
-func (dir *Dir) GetTrash() {
-	os := dir.OS
-
-	if os == "Mac" {
-		fmt.Println("Return Trash")
+func (dir *Dir) GetTrash() (trash string) {
+	user_os := dir.OS
+	homedir, err := os.UserHomeDir()
+	if err != nil {
+		panic(err)
 	}
+	if user_os == "darwin" {
+		trash = homedir + "/.Trash"
+	} /* what happens if no list matches? */
+	return
 }
 
 func DirEmpty(dir string) (is_empty bool) {

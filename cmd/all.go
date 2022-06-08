@@ -12,6 +12,7 @@ var allCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		desktopCmd.Run(cmd, args)
 		downloadsCmd.Run(cmd, args)
+		trashCmd.Run(cmd, args)
 	},
 }
 
