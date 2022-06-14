@@ -50,3 +50,11 @@ func PrintDeleted() {
 
 	fmt.Println("╰-" + green + "✔ Removed" + end)
 }
+
+func PrintWarning(msg string) {
+	var red = Red()
+	var bold = Bold()
+	var end = End()
+
+	fmt.Println("\n" + bold + red + "‼" + end + " " + msg)
+}

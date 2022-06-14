@@ -21,9 +21,15 @@ back to the user.`,
 		d := core.Dir{}
 		d.OS = runtime.GOOS
 
-		dirs := [3]string{d.GetDownloads(), d.GetDesktop(), d.GetTrash()}
-		dirnames := [3]string{"Downloads", "Desktop", "Trash"}
+		dirs := []string{d.GetDownloads(), d.GetDesktop(), d.GetTrash()}
+		dirnames := []string{"Downloads", "Desktop", "Trash"}
 
+		trash_supported := cmdutil.IsIn(d.OS, cmdutil.TrashSupported[:])
+
+		if !trash_supported {
+			dirs = dirs[:2]
+			dirnames = dirnames[:2]
+		}
 		for indx, dir := range dirs {
 			if core.DirEmpty((dir)) {
 				text := fmt.Sprintf("No files in the %s folder.", dirnames[indx])
@@ -32,6 +38,9 @@ back to the user.`,
 				text := fmt.Sprintf("No files in the %s folder.", dirnames[indx])
 				cmdutil.PrintDiagnoseFail(text)
 			}
+		}
+		if !trash_supported {
+			cmdutil.PrintWarning("Cleaning Trash not yet supported on this OS! Please contribute!")
 		}
 	},
 }

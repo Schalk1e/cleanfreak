@@ -2,8 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/spf13/cobra"
 
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
 	"github.com/spf13/viper"
@@ -36,36 +37,28 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	// global flags & config.
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cleanfreak.yaml)")
 }
 
-// initConfig reads in config file and ENV variables if set.
 func initConfig() {
 	if cfgFile != "" {
-		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
-		// Find home directory.
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".cleanfreak" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
 		viper.SetConfigName(".cleanfreak")
 	}
 
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// If a config file is found, read it in, else create default config and then read it in.
+	viper.AutomaticEnv()
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
 	} else {
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		// write .cleanfreak.yaml and read.
 		fmt.Println("Creating default config file in home directory.")
 
 		cmdutil.BuildConfig(home)

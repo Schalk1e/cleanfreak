@@ -21,10 +21,13 @@ var trashCmd = &cobra.Command{
 		d := core.Dir{}
 		d.OS = runtime.GOOS
 
+		if !cmdutil.IsIn(d.OS, cmdutil.TrashSupported[:]) {
+			cmdutil.PrintWarning("Cleaning Trash not yet supported on this OS! Please contribute!")
+			return
+		}
 		if core.DirEmpty(d.GetTrash()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
-			return
 		} else {
 			cmdutil.PrintDiagnoseFail(diagnose_text)
 			trash := d.GetTrash()
