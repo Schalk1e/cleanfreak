@@ -26,27 +26,25 @@ project directory, or remove them.`,
 		cf_root := viper.Get("directory")
 		diagnose_text := "No files in the Downloads folder."
 
+		d := core.Dir{}
+
 		if err != nil {
 			panic(err)
 		}
-
 		str, ok := cf_root.(string)
 		if !ok {
 			fmt.Println("Could not find cf_root in config.")
 			return
 		}
-
 		if !core.DirExists(path.Join(homedir, str)) {
-			fmt.Println("\n Could not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
+			fmt.Println("\nCould not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
 			return
 		}
-
-		if core.DirEmpty("Downloads") {
+		if core.DirEmpty(d.GetDownloads()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
 			return
 		}
-
 		cmdutil.PrintDiagnoseFail(diagnose_text)
 
 		CleanDownloads(str)
@@ -62,20 +60,17 @@ func CleanDownloads(target string) {
 	}
 
 	downloads := path.Join(homedir, "Downloads")
-
 	files := core.List(downloads, false)
 
 	for i := 1; i < len(files); i++ {
 
 		filename := path.Base(files[i])
 		c := core.Clean{}
-
 		action := cmdutil.FileSurvey(filename)
 
 		if action == "Move" {
 
 			opts := core.List(path.Join(homedir, target), true)
-
 			folder := cmdutil.DirSurvey(opts)
 			name := cmdutil.FileNameSurvey()
 
@@ -83,10 +78,14 @@ func CleanDownloads(target string) {
 			c.TargetFile = path.Join(folder, name)
 			c.FileTransfer()
 
+			cmdutil.PrintMoved()
+
 		} else if action == "Delete" {
 
 			c.SourceFile = files[i]
 			c.FileDelete()
+
+			cmdutil.PrintDeleted()
 
 		} else if action == "View" {
 

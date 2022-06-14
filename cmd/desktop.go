@@ -29,24 +29,21 @@ project directory, or remove them.`,
 		if err != nil {
 			panic(err)
 		}
-
 		str, ok := cf_root.(string)
 		if !ok {
 			fmt.Println("Could not find cf_root in config.")
 			return
 		}
-
 		if !core.DirExists(path.Join(homedir, str)) {
-			fmt.Println("\n Could not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
+			fmt.Println("\nCould not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
 			return
 		}
-
-		if core.DirEmpty("Desktop") {
+		d := core.Dir{}
+		if core.DirEmpty(d.GetDesktop()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
 			return
 		}
-
 		cmdutil.PrintDiagnoseFail(diagnose_text)
 
 		CleanDesktop(str)
@@ -62,20 +59,17 @@ func CleanDesktop(target string) {
 	}
 
 	desktop := path.Join(homedir, "Desktop")
-
 	files := core.List(desktop, false)
 
 	for i := 1; i < len(files); i++ {
 
 		filename := path.Base(files[i])
 		c := core.Clean{}
-
 		action := cmdutil.FileSurvey(filename)
 
 		if action == "Move" {
 
 			opts := core.List(path.Join(homedir, target), true)
-
 			folder := cmdutil.DirSurvey(opts)
 			name := cmdutil.FileNameSurvey()
 
@@ -83,10 +77,14 @@ func CleanDesktop(target string) {
 			c.TargetFile = path.Join(folder, name)
 			c.FileTransfer()
 
+			cmdutil.PrintMoved()
+
 		} else if action == "Delete" {
 
 			c.SourceFile = files[i]
 			c.FileDelete()
+
+			cmdutil.PrintDeleted()
 
 		} else if action == "View" {
 
