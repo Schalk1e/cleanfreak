@@ -16,7 +16,6 @@ var trashCmd = &cobra.Command{
 
 	Run: func(cmd *cobra.Command, args []string) {
 		// Always relative to home! Think abt this a little more carefully.
-		// homedir, err := os.UserHomeDir() // Add error handling.
 		diagnose_text := "No files in the Trash folder."
 
 		d := core.Dir{}
@@ -26,8 +25,26 @@ var trashCmd = &cobra.Command{
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			fmt.Println("\nEverything is in order! 🎉")
 			return
+		} else {
+			cmdutil.PrintDiagnoseFail(diagnose_text)
+			trash := d.GetTrash()
+			CleanTrash(trash)
+			fmt.Println("\nEverything is in order! 🎉")
 		}
 	},
+}
+
+func CleanTrash(target string) {
+	files := core.List(target, false)
+	action := cmdutil.DeleteSurvey()
+	c := core.Clean{}
+	if action == "Y" {
+		for i := 1; i < len(files); i++ {
+			c.SourceFile = files[i]
+			c.FileDelete()
+		}
+		cmdutil.PrintDeleted()
+	}
 }
 
 func init() {

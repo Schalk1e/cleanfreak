@@ -65,3 +65,16 @@ func FileNameSurvey() string {
 
 	return name
 }
+
+func DeleteSurvey() string {
+
+	action := ""
+	prompt := &survey.Input{
+		Message: "Would you like to clear out the trash? (Y/N): ",
+	}
+
+	fmt.Println("")
+	survey.AskOne(prompt, &action)
+
+	return action
+}
