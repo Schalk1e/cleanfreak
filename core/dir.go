@@ -36,6 +36,8 @@ func (dir *Dir) GetTrash() (trash string) {
 	}
 	if user_os == "darwin" {
 		trash = homedir + "/.Trash"
+	} else if user_os == "linux" {
+		trash = homedir + "/.local/share/Trash"
 	} /* what happens if no list matches? */
 	return
 }

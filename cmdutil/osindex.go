@@ -1,3 +1,3 @@
 package cmdutil
 
-var TrashSupported = [...]string{"darwin"}
+var TrashSupported = [...]string{"darwin", "linux"}
