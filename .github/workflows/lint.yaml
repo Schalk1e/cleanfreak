@@ -1,12 +1,15 @@
+---
 name: Lint
 on:
   push:
     paths:
+      - .github/workflows/lint.yaml
       - "**.go"
       - go.mod
       - go.sum
   pull_request:
     paths:
+      - .github/workflows/lint.yaml
       - "**.go"
       - go.mod
       - go.sum
@@ -57,4 +60,5 @@ jobs:
           assert-nothing-changed go fmt ./...
           assert-nothing-changed go mod tidy
           bin/golangci-lint run --out-format=github-actions --timeout=3m || STATUS=$?
+
           exit $STATUS
