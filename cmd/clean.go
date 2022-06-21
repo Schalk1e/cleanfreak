@@ -4,10 +4,9 @@ import (
 	"fmt"
 
 	"errors"
+
 	"github.com/spf13/cobra"
 )
-
-var all bool
 
 var cleanCmd = &cobra.Command{
 	Use:   "clean",

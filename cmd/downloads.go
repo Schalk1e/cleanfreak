@@ -89,7 +89,10 @@ func CleanDownloads(target string) {
 
 		} else if action == "View" {
 
-			open.Run(files[i])
+			open_err := open.Run(files[i])
+			if open_err != nil {
+				fmt.Println(open_err.Error())
+			}
 			i = i - 1
 
 		} else {

@@ -21,9 +21,7 @@ func List(dir string, only_dirs bool) (files []string) {
 }
 
 func IsEmpty(dir string) bool {
-	var f_arr []string
-
-	f_arr = List(dir, false)
+	f_arr := List(dir, false)
 	if len(f_arr) == 1 {
 		return true
 	} else {

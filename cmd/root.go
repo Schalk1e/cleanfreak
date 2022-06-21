@@ -62,6 +62,9 @@ func initConfig() {
 		fmt.Println("Creating default config file in home directory.")
 
 		cmdutil.BuildConfig(home)
-		viper.ReadInConfig()
+		viper_err := viper.ReadInConfig()
+		if viper_err != nil {
+			fmt.Println(viper_err.Error())
+		}
 	}
 }

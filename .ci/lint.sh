@@ -5,5 +5,5 @@ then
     echo "Please run lint.sh from root :)"
     exit 1
 else
-    go fmt $DIR/cmd $DIR/core $DIR/cmdutil
+    golangci-lint run $DIR/cmd $DIR/core $DIR/cmdutil
 fi

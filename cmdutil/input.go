@@ -28,7 +28,10 @@ func FileSurvey(filename string) string {
 	}{}
 
 	fmt.Println("")
-	survey.Ask(actionSurvey, &action)
+	survey_err := survey.Ask(actionSurvey, &action)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
 
 	return action.Action
 }
@@ -39,7 +42,7 @@ func DirSurvey(opts []string) string {
 		{
 			Name: "dir",
 			Prompt: &survey.Select{
-				Message: fmt.Sprintf("Select target:"),
+				Message: fmt.Sprintln("Select target:"),
 				Options: opts,
 			},
 		},
@@ -49,7 +52,10 @@ func DirSurvey(opts []string) string {
 		Dir string
 	}{}
 
-	survey.Ask(dirSurvey, &target)
+	survey_err := survey.Ask(dirSurvey, &target)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
 
 	return target.Dir
 }
@@ -61,7 +67,10 @@ func FileNameSurvey() string {
 		Message: "Please enter filename: ",
 	}
 
-	survey.AskOne(prompt, &name)
+	survey_err := survey.AskOne(prompt, &name)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
 
 	return name
 }
@@ -74,7 +83,10 @@ func DeleteSurvey() string {
 	}
 
 	fmt.Println("")
-	survey.AskOne(prompt, &action)
+	survey_err := survey.AskOne(prompt, &action)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
 
 	return action
 }
