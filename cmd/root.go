@@ -4,11 +4,11 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
-	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
 )
 
 var cfgFile string
