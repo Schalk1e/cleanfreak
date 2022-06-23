@@ -6,12 +6,12 @@ import (
 
 func PrintDiagnoseSuccess(msg string) {
 	fmt.Println("\n" + bold + cyan + "Done: " + end + msg)
-	fmt.Println("╰>" + green + "✔ Success" + end)
+	fmt.Println("╰> " + green + "✔ Success" + end)
 }
 
 func PrintDiagnoseFail(msg string) {
 	fmt.Println("\n" + bold + cyan + "Done: " + end + msg)
-	fmt.Println("╰>" + red + "✘ Failed" + end)
+	fmt.Println("╰> " + red + "✘ Failed" + end)
 }
 
 func PrintArrows(msgs []string) {
@@ -25,11 +25,11 @@ func PrintArrows(msgs []string) {
 }
 
 func PrintMoved() {
-	fmt.Println("╰>" + green + "✔ Moved" + end)
+	fmt.Println("╰> " + green + "✔ Moved" + end)
 }
 
 func PrintDeleted() {
-	fmt.Println("╰>" + green + "✔ Removed" + end)
+	fmt.Println("╰> " + green + "✔ Removed" + end)
 }
 
 func PrintWarning(msg string) {

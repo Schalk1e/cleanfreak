@@ -1,3 +1,6 @@
+//go:build windows
+// +build windows
+
 package cmd
 
 import (
@@ -35,36 +38,8 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
+	cobra.OnInitialize(cmd.initConfig)
+	core.EnableVT()
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cleanfreak.yaml)")
-}
-
-func initConfig() {
-	if cfgFile != "" {
-		viper.SetConfigFile(cfgFile)
-	} else {
-		home, err := os.UserHomeDir()
-		cobra.CheckErr(err)
-
-		viper.AddConfigPath(home)
-		viper.SetConfigType("yaml")
-		viper.SetConfigName(".cleanfreak")
-	}
-
-	viper.AutomaticEnv()
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
-	} else {
-		home, err := os.UserHomeDir()
-		cobra.CheckErr(err)
-
-		fmt.Println("Creating default config file in home directory.")
-
-		cmdutil.BuildConfig(home)
-		viper_err := viper.ReadInConfig()
-		if viper_err != nil {
-			fmt.Println(viper_err.Error())
-		}
-	}
 }
