@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
+	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/viper"
 )
 
@@ -36,6 +37,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+	core.EnableVT()
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cleanfreak.yaml)")
 }
