@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"runtime"
 
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
@@ -27,12 +26,12 @@ var trashCmd = &cobra.Command{
 		}
 		if core.DirEmpty(d.GetTrash()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
-			fmt.Println("\nEverything is in order! 🎉")
+			cmdutil.PrintOrder()
 		} else {
 			cmdutil.PrintDiagnoseFail(diagnose_text)
 			trash := d.GetTrash()
 			CleanTrash(trash)
-			fmt.Println("\nEverything is in order! 🎉")
+			cmdutil.PrintOrder()
 		}
 	},
 }

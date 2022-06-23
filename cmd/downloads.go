@@ -42,7 +42,7 @@ project directory, or remove them.`,
 		}
 		if core.DirEmpty(d.GetDownloads()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
-			fmt.Println("\nEverything is in order! 🎉")
+			cmdutil.PrintOrder()
 			return
 		}
 		cmdutil.PrintDiagnoseFail(diagnose_text)

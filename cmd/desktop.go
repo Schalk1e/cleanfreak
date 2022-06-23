@@ -41,7 +41,7 @@ project directory, or remove them.`,
 		d := core.Dir{}
 		if core.DirEmpty(d.GetDesktop()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
-			fmt.Println("\nEverything is in order! 🎉")
+			cmdutil.PrintOrder()
 			return
 		}
 		cmdutil.PrintDiagnoseFail(diagnose_text)
