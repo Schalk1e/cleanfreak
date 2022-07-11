@@ -1,4 +1,6 @@
-# cleanfreak
+<h1 align="center">
+  :octocat: cleanfreak
+</h1>
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
