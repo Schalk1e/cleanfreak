@@ -72,7 +72,11 @@ func cacheReport(cache_dirs []string) {
 	wg.Wait()
 
 	fmt.Println("")
-	fmt.Println(cmdutil.PrintTableFromSlices(cache_data))
+	fmt.Println(
+		cmdutil.PrintTableFromSlices(
+			cmdutil.OrderSliceByFloat(cache_data),
+		),
+	)
 }
 
 func init() {
