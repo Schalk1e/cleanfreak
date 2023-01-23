@@ -2,8 +2,8 @@ package cmdutil
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"path"
 
 	"gopkg.in/yaml.v3"
@@ -11,18 +11,24 @@ import (
 
 type Settings struct {
 	Directory string
-	Subdirs   [2]string
+	Subdirs   []string
+	Cachedirs []string
 }
 
 func BuildConfig(dir string) {
 	fpath := path.Join(dir, ".cleanfreak.yaml")
 
-	config := Settings{Directory: "cleanfreak", Subdirs: [2]string{"Personal", "Work"}}
+	// Ask user for initialisation paths.
+	config_init_paths := ConfigInitPaths()
+	// Ask user for cache folders to monitor.
+	cache_paths := CachePaths()
+
+	config := Settings{Directory: "cleanfreak", Subdirs: config_init_paths, Cachedirs: cache_paths}
 	data, err := yaml.Marshal(&config)
 	if err != nil {
 		log.Fatal(err)
 	}
-	err2 := ioutil.WriteFile(fpath, data, 0666)
+	err2 := os.WriteFile(fpath, data, 0666)
 	if err2 != nil {
 		log.Fatal(err2)
 	}

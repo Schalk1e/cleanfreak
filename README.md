@@ -55,6 +55,7 @@ Or allow the system to execute all tasks bu running:
 # TODO
 
 - tests
+- skip files
 - cache support
 - add trash support for windows. 
 

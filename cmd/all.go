@@ -13,6 +13,7 @@ var allCmd = &cobra.Command{
 		desktopCmd.Run(cmd, args)
 		downloadsCmd.Run(cmd, args)
 		trashCmd.Run(cmd, args)
+		cacheCmd.Run(cmd, args)
 	},
 }
 

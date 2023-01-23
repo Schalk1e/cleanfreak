@@ -2,6 +2,7 @@ package cmdutil
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
 )
@@ -89,4 +90,57 @@ func DeleteSurvey() string {
 	}
 
 	return action
+}
+
+func ConfigRoot() string {
+	name := ""
+	prompt := &survey.Input{
+		Message: "Please enter the path where the cleanfreak directory should be created: ",
+	}
+
+	survey_err := survey.AskOne(prompt, &name)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
+
+	return name
+
+}
+
+func ConfigInitPaths() []string {
+	input := ""
+
+	prompt := &survey.Input{
+		Message: "Please enter the folder names to initialise the cleanfreak directory separated with comma's (example: one,two): ",
+	}
+
+	survey_err := survey.AskOne(prompt, &input)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
+	init_paths := strings.Split(input, ",")
+	for i := range init_paths {
+		init_paths[i] = strings.TrimSpace(init_paths[i])
+	}
+
+	return init_paths
+}
+
+func CachePaths() []string {
+	input := ""
+
+	prompt := &survey.Input{
+		Message: "Please enter the full cache paths you'd like cleafreak to watch separated with comma's (example: /path/one,/path/two): ",
+	}
+
+	survey_err := survey.AskOne(prompt, &input)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
+	cache_paths := strings.Split(input, ",")
+	for i := range cache_paths {
+		cache_paths[i] = strings.TrimSpace(cache_paths[i])
+	}
+
+	return cache_paths
 }

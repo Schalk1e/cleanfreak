@@ -10,7 +10,7 @@ import (
 
 var trashCmd = &cobra.Command{
 	Use:   "trash",
-	Short: "Runs cleanfreak on the downloads folder.",
+	Short: "Runs cleanfreak on the trash folder.",
 	Long:  "This command will clean the user's trash folder.",
 
 	Run: func(cmd *cobra.Command, args []string) {

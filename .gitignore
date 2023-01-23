@@ -23,3 +23,5 @@ go.work
 # Mac
 .DS_Store
 
+#Notes
+TODO.txt

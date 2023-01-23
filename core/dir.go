@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"path/filepath"
 )
 
 type Dir struct {
@@ -38,7 +39,7 @@ func (dir *Dir) GetTrash() (trash string) {
 		trash = homedir + "/.Trash"
 	} else if user_os == "linux" {
 		trash = homedir + "/.local/share/Trash"
-	} /* what happens if no list matches? */
+	}
 	return
 }
 
@@ -69,4 +70,18 @@ func DirsAdd(base_dir string, dirs []string) {
 		}
 	}
 
+}
+
+func DirSize(path string) (int64, error) {
+	var size int64
+	err := filepath.Walk(path, func(_ string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			size += info.Size()
+		}
+		return err
+	})
+	return size, err
 }
