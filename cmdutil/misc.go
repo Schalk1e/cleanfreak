@@ -42,3 +42,15 @@ func OrderSliceByFloat(input [][]string) [][]string {
 	})
 	return input
 }
+
+func FilterSlice(input [][]string, threshold float64) [][]string {
+	filtered_slice := [][]string{}
+
+	for i := 0; i < len(input); i++ {
+		if FloatFromGBString(input[i][len(input[i])-1]) > threshold {
+			filtered_slice = append(filtered_slice, input[i])
+		}
+	}
+
+	return filtered_slice
+}

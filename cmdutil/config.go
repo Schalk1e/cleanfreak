@@ -13,6 +13,7 @@ type Settings struct {
 	Directory string
 	Subdirs   []string
 	Cachedirs []string
+	Threshold float64
 }
 
 func BuildConfig(dir string) {
@@ -22,8 +23,15 @@ func BuildConfig(dir string) {
 	config_init_paths := ConfigInitPaths()
 	// Ask user for cache folders to monitor.
 	cache_paths := CachePaths()
+	//Ask user for max size of cache dirs.
+	threshold := CacheSize()
 
-	config := Settings{Directory: "cleanfreak", Subdirs: config_init_paths, Cachedirs: cache_paths}
+	config := Settings{
+		Directory: "cleanfreak",
+		Subdirs:   config_init_paths,
+		Cachedirs: cache_paths,
+		Threshold: threshold,
+	}
 	data, err := yaml.Marshal(&config)
 	if err != nil {
 		log.Fatal(err)

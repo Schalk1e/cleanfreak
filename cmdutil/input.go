@@ -144,3 +144,17 @@ func CachePaths() []string {
 
 	return cache_paths
 }
+
+func CacheSize() float64 {
+	var size float64
+	prompt := &survey.Input{
+		Message: "Please enter the allowed threshold for cache size in GB's: ",
+	}
+
+	survey_err := survey.AskOne(prompt, &size)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
+
+	return size
+}

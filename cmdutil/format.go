@@ -42,6 +42,10 @@ func PrintDiagnoseFail(msg string) {
 	fmt.Println("╰ " + red + ballot + " Failed" + end)
 }
 
+func PrintCacheTotal(total string) {
+	fmt.Println(bold + cyan + "Total Storage " + end + blue + "--->" + end + " " + total)
+}
+
 func PrintArrows(msgs []string) {
 	for i, msg := range msgs {
 		if i == 0 {

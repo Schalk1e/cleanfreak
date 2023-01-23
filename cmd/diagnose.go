@@ -46,13 +46,15 @@ back to the user.`,
 			cmdutil.PrintWarning("Cleaning Trash not yet supported on this OS! Please contribute!")
 		}
 		cache_dirs := viper.GetStringSlice("cachedirs")
-		cacheReport(cache_dirs)
+		threshold := viper.GetFloat64("threshold")
+		cacheReport(cache_dirs, threshold)
 	},
 }
 
-func cacheReport(cache_dirs []string) {
+func cacheReport(cache_dirs []string, threshold float64) {
 	var cache_data [][]string
 	num := len(cache_dirs)
+	sum := 0.0
 
 	var wg sync.WaitGroup
 	wg.Add(num)
@@ -71,12 +73,27 @@ func cacheReport(cache_dirs []string) {
 
 	wg.Wait()
 
-	fmt.Println("")
-	fmt.Println(
-		cmdutil.PrintTableFromSlices(
-			cmdutil.OrderSliceByFloat(cache_data),
-		),
-	)
+	data := cmdutil.FilterSlice(cache_data, threshold)
+
+	if len(data) > 0 {
+		cmdutil.PrintDiagnoseFail("Some cache dirs are over the configured threshold.")
+		fmt.Println("")
+		fmt.Println(
+			cmdutil.PrintTableFromSlices(
+				cmdutil.OrderSliceByFloat(
+					data,
+				),
+			),
+		)
+		for i := 0; i < len(cache_data); i++ {
+			sum += cmdutil.FloatFromGBString(
+				cache_data[i][len(cache_data[i])-1],
+			)
+		}
+		cmdutil.PrintCacheTotal((strconv.FormatFloat(sum, 'f', 2, 64) + "GB"))
+	} else {
+		cmdutil.PrintDiagnoseSuccess("All cache dirs under configured threshold.")
+	}
 }
 
 func init() {
