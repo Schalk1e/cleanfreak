@@ -4,6 +4,7 @@ package cmdutil
 
 import (
 	"fmt"
+	"strings"
 )
 
 func PrintDiagnoseSuccess(msg string) {
@@ -14,6 +15,10 @@ func PrintDiagnoseSuccess(msg string) {
 func PrintDiagnoseFail(msg string) {
 	fmt.Println("\n" + bold + cyan + "Done: " + end + msg)
 	fmt.Println("╰ " + red + "Failed" + end)
+}
+
+func PrintCacheTotal(total string) {
+	fmt.Println(bold + cyan + "Total Storage " + end + blue + bold + "===>" + end + " " + total)
 }
 
 func PrintArrows(msgs []string) {

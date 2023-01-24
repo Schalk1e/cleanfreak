@@ -16,6 +16,10 @@ func PrintDiagnoseFail(msg string) {
 	fmt.Println("╰ " + red + ballot + " Failed" + end)
 }
 
+func PrintCacheTotal(total string) {
+	fmt.Println(bold + cyan + "Total Storage " + end + blue + bold + "===>" + end + " " + total)
+}
+
 func PrintArrows(msgs []string) {
 	for i, msg := range msgs {
 		if i == 0 {
@@ -39,5 +43,9 @@ func PrintWarning(msg string) {
 }
 
 func PrintOrder() {
-	fmt.Println("\nEverything is in order! " + celebrate)
+	fmt.Println("\n" + green + tick + " Everything is in order! No action to take." + end)
+}
+
+func PrintCleaned() {
+	fmt.Println("╰ " + green + tick + " Cleaned" + end)
 }

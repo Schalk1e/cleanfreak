@@ -10,7 +10,7 @@ import (
 
 var trashCmd = &cobra.Command{
 	Use:   "trash",
-	Short: "Runs cleanfreak on the downloads folder.",
+	Short: "Runs cleanfreak on the trash folder.",
 	Long:  "This command will clean the user's trash folder.",
 
 	Run: func(cmd *cobra.Command, args []string) {
@@ -38,7 +38,7 @@ var trashCmd = &cobra.Command{
 
 func CleanTrash(target string) {
 	files := core.List(target, false)
-	action := cmdutil.DeleteSurvey()
+	action := cmdutil.TrashDeleteSurvey()
 	c := core.Clean{}
 	if action == "Y" {
 		for i := 1; i < len(files); i++ {
