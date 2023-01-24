@@ -76,10 +76,10 @@ func cacheReport(cache_dirs []string, threshold float64) {
 	data := cmdutil.FilterSlice(cache_data, threshold)
 
 	if len(data) > 0 {
-		cmdutil.PrintDiagnoseFail("Some cache dirs are over the configured threshold.")
+		cmdutil.PrintDiagnoseFail("No caches over the configured threshold.")
 		fmt.Println("")
 		fmt.Println(
-			cmdutil.PrintTableFromSlices(
+			cmdutil.TableFromSlices(
 				cmdutil.OrderSliceByFloat(
 					data,
 				),
@@ -92,7 +92,7 @@ func cacheReport(cache_dirs []string, threshold float64) {
 		}
 		cmdutil.PrintCacheTotal((strconv.FormatFloat(sum, 'f', 2, 64) + "GB"))
 	} else {
-		cmdutil.PrintDiagnoseSuccess("All cache dirs under configured threshold.")
+		cmdutil.PrintDiagnoseSuccess("No caches over the configured threshold.")
 	}
 }
 

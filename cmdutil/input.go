@@ -76,11 +76,29 @@ func FileNameSurvey() string {
 	return name
 }
 
-func DeleteSurvey() string {
+func TrashDeleteSurvey() string {
 
 	action := ""
 	prompt := &survey.Input{
 		Message: "Would you like to clear out the trash? (Y/N): ",
+	}
+
+	fmt.Println("")
+	survey_err := survey.AskOne(prompt, &action)
+	if survey_err != nil {
+		fmt.Println(survey_err.Error())
+	}
+
+	return action
+}
+
+func CacheDeleteSurvey(path string, size string) string {
+	action := ""
+	prompt := &survey.Input{
+		Message: fmt.Sprintf("Would you like to clean cache directory %s of size %s? (Y/N):",
+			path,
+			size,
+		),
 	}
 
 	fmt.Println("")

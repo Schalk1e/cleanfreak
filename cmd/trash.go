@@ -38,7 +38,7 @@ var trashCmd = &cobra.Command{
 
 func CleanTrash(target string) {
 	files := core.List(target, false)
-	action := cmdutil.DeleteSurvey()
+	action := cmdutil.TrashDeleteSurvey()
 	c := core.Clean{}
 	if action == "Y" {
 		for i := 1; i < len(files); i++ {
