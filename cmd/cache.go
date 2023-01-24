@@ -70,6 +70,7 @@ func CleanCache(cache_dirs []string, threshold float64, diagnose_text string) {
 		}
 	} else {
 		cmdutil.PrintDiagnoseSuccess(diagnose_text)
+		cmdutil.PrintOrder()
 	}
 }
 
