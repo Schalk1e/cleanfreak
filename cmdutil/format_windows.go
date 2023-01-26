@@ -4,7 +4,6 @@ package cmdutil
 
 import (
 	"fmt"
-	"strings"
 )
 
 func PrintDiagnoseSuccess(msg string) {
@@ -44,5 +43,9 @@ func PrintWarning(msg string) {
 }
 
 func PrintOrder() {
-	fmt.Println("\nEverything is in order!")
+	fmt.Println("\n" + green + " Everything is in order! No action to take." + end)
+}
+
+func PrintCleaned() {
+	fmt.Println("╰ " + green + tick + " Cleaned" + end)
 }
