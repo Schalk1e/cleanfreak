@@ -17,7 +17,7 @@ func PrintDiagnoseFail(msg string) {
 }
 
 func PrintCacheTotal(total string) {
-	fmt.Println(bold + cyan + "Total Storage " + end + blue + bold + "===>" + end + " " + total)
+	fmt.Println(bold + cyan + "Total Storage " + end + total)
 }
 
 func PrintArrows(msgs []string) {
