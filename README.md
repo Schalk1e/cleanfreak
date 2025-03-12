@@ -10,11 +10,17 @@
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
-## usage
+## setup
 
-![Setup](assets/setup.gif)
+<div align="center">
+  <img src="assets/setup.gif" alt="Demo GIF" width="750"/>
+</div>
 
-![Cleaning](assets/cleaning.gif)
+## diagnosing and cleaning
+
+<div align="center">
+  <img src="assets/cleaning.gif" alt="Demo GIF" width="750"/>
+</div>
 
 ## installation
 
