@@ -10,6 +10,12 @@
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
+## usage
+
+![Setup](assets/setup.gif)
+
+![Cleaning](assets/cleaning.gif)
+
 ## installation
 
 ### manual
