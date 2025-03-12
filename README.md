@@ -54,8 +54,6 @@ Or allow the system to execute all tasks bu running:
 
 # TODO
 
-- tests
-- skip files
-- cache support
-- add trash support for windows. 
-
+- Tests.
+- Add trash support for windows.
+- WSL does not have desktop or trash.
