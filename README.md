@@ -1,3 +1,7 @@
+<h1 align="center">
+  CleanFreak
+</h1>
+
 ```sh
 > ~ cf
                        "______________                  ________                  ______  
@@ -16,21 +20,21 @@
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
-## setup
+## Setup
 
 <div align="center">
   <img src="assets/setup.gif" alt="Demo GIF" width="750"/>
 </div>
 
-## diagnosing and cleaning
+## Diagnosing and Cleaning
 
 <div align="center">
   <img src="assets/cleaning.gif" alt="Demo GIF" width="750"/>
 </div>
 
-## installation
+## Installation
 
-### manual
+### Manual
 
 Requires an installation of golang. To install golang and to setup your go environment, reference the golang documentation here: 
 
@@ -48,17 +52,17 @@ go build -o $GOPATH/bin/cf
 
 Note that, for trash support, terminal might need the full disk access setting enabled under the user's security and privacy settings. 
 
-## usage
+## Usage
 
-### view cleanfreak help
+### View CleanFreak Help
 
 `cf`  or `cf -h`
 
-### diagnose system
+### Diagnose System
 
 `cf diagnose`
 
-### run clean 
+### Run Clean 
 
 Before executing clean, cf will prompt the user to first execute `cf init` to initialise a cleanfreak directory that it will manage. The config file for this directory will be created in $HOME/.cleanfreak.yaml if no config is provided. Else, the user may specify his or her own config path and pass it to `cf init`. 
 
