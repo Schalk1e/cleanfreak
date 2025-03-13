@@ -4,9 +4,9 @@
 
 <div align="center">
   <p>
-    <img src="https://github.com/Schalk1e/cleanfreak/workflows/Lint/badge.svg" width="120" />
+    <img src="https://github.com/Schalk1e/cleanfreak/workflows/Lint/badge.svg" width="130" />
     <img src="https://img.shields.io/badge/version-0.1.0-orange" width="110"/>
-    <img src="https://img.shields.io/badge/license-MIT-blue" width="110"/>
+    <img src="https://img.shields.io/badge/license-MIT-blue" width="100"/>
 
   </p>
 </div>
