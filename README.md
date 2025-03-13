@@ -2,6 +2,12 @@
   CleanFreak
 </h1>
 
+<div align="center">
+  <p>
+    <img src="https://github.com/Schalk1e/cleanfreak/workflows/Lint/badge.svg" width="120" />
+  </p>
+</div>
+
 ```sh
 > ~ cf
                        "______________                  ________                  ______  
@@ -11,12 +17,6 @@
                        \____/  /_/  \___/\__,_/ /_/ /_//_/    /_/    \___/\__,_/ /_/|_|"  
 
 ```
-
-<div align="center">
-  <p>
-    <img src="https://github.com/Schalk1e/cleanfreak/workflows/Lint/badge.svg" width="120" />
-  </p>
-</div>
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
