@@ -5,16 +5,19 @@
 <div align="center">
   <p>
     <img src="https://github.com/Schalk1e/cleanfreak/workflows/Lint/badge.svg" width="120" />
+    <img src="https://img.shields.io/badge/version-0.1.0-orange" width="110"/>
+    <img src="https://img.shields.io/badge/license-MIT-blue" width="110"/>
+
   </p>
 </div>
 
 ```sh
 > ~ cf
-                    "______________                  ________                  ______  
+                    "______________                  ________                  ______
                     __  ____/__  /__________ __________  __/_________________ ___  /__
                     _  /    __  /_  _ \  __ '/_  __ \_  /_ __  ___/  _ \  __ '/_  //_/
-                    / /___  _  / /  __/ /_/ /_  / / /  __/ _  /   /  __/ /_/ /_  ,<   
-                    \____/  /_/  \___/\__,_/ /_/ /_//_/    /_/    \___/\__,_/ /_/|_|"  
+                    / /___  _  / /  __/ /_/ /_  / / /  __/ _  /   /  __/ /_/ /_  ,<
+                    \____/  /_/  \___/\__,_/ /_/ /_//_/    /_/    \___/\__,_/ /_/|_|"
 
 ```
 
@@ -36,7 +39,7 @@ An opinionated workspace organisation and cleaning utility. (Work in progress, p
 
 ### Manual
 
-Requires an installation of golang. To install golang and to setup your go environment, reference the golang documentation here: 
+Requires an installation of golang. To install golang and to setup your go environment, reference the golang documentation here:
 
 `https://go.dev/doc/install`
 
@@ -50,7 +53,7 @@ go build -o $GOPATH/bin/cf
 
 ### macOS
 
-Note that, for trash support, terminal might need the full disk access setting enabled under the user's security and privacy settings. 
+Note that, for trash support, terminal might need the full disk access setting enabled under the user's security and privacy settings.
 
 ## Usage
 
@@ -62,9 +65,9 @@ Note that, for trash support, terminal might need the full disk access setting e
 
 `cf diagnose`
 
-### Run Clean 
+### Run Clean
 
-Before executing clean, cf will prompt the user to first execute `cf init` to initialise a cleanfreak directory that it will manage. The config file for this directory will be created in $HOME/.cleanfreak.yaml if no config is provided. Else, the user may specify his or her own config path and pass it to `cf init`. 
+Before executing clean, cf will prompt the user to first execute `cf init` to initialise a cleanfreak directory that it will manage. The config file for this directory will be created in $HOME/.cleanfreak.yaml if no config is provided. Else, the user may specify his or her own config path and pass it to `cf init`.
 
 The user may execute a specific task, for example:
 
@@ -77,5 +80,7 @@ Or allow the system to execute all tasks bu running:
 # TODO
 
 - Tests.
+- Coverage Badge
+- Versioned Release
+- WSL does not have desktop or trash. Add checks when files do not exist...
 - Add trash support for windows.
-- WSL does not have desktop or trash.
