@@ -5,13 +5,6 @@ import (
 	"testing"
 )
 
-// ShowTestResult compares the expected and actual results, printing an error message if they differ.
-func ShowTestResult(got, want any, t *testing.T) {
-	if got != want {
-		t.Errorf("got %v, wanted %v\n", got, want)
-	}
-}
-
 // TestGetDownloads tests the GetDownloads method of the Dir struct, ensuring that it returns the correct
 // path to the Downloads directory based on the user's home directory.
 func TestGetDownloads(t *testing.T) {
