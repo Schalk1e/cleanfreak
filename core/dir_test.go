@@ -71,13 +71,8 @@ func TestGetTrashLinux(t *testing.T) {
 
 // TestDirExistsEmpty tests the DirExists function by checking if an empty temporary directory exists.
 func TestDirExistsEmpty(t *testing.T) {
-	tmpdir, err := os.MkdirTemp("", "tmpdir")
-	if err != nil {
-		t.Fatal("Failed to create temp directory:", err)
-	}
-	t.Cleanup(func() {
-		os.RemoveAll(tmpdir) // Cleanup after test
-	})
+	// Create an empty temporary directory using t.TempDir()
+	tmpdir := t.TempDir()
 
 	got := DirExists(tmpdir)
 	want := true
@@ -88,21 +83,15 @@ func TestDirExistsEmpty(t *testing.T) {
 // TestDirExistsNonEmpty tests the DirExists function by checking if a non-empty temporary directory exists.
 // It writes a temporary file in the directory before checking its existence.
 func TestDirExistsNonEmpty(t *testing.T) {
-	tmpdir, err := os.MkdirTemp("", "tmpdir")
-	if err != nil {
-		t.Fatal("Failed to create temp directory:", err)
-	}
+	// Create a temporary directory using t.TempDir()
+	tmpdir := t.TempDir()
 	tmpfile := tmpdir + "/tmpfile.txt"
 
 	// Write some content into file
-	err = os.WriteFile(tmpfile, []byte("tmpcontent"), 0644)
+	err := os.WriteFile(tmpfile, []byte("tmpcontent"), 0644)
 	if err != nil {
 		t.Fatal("Failed to write file:", err)
 	}
-
-	t.Cleanup(func() {
-		os.RemoveAll(tmpdir) // Cleanup after test
-	})
 
 	got := DirExists(tmpdir)
 	want := true
@@ -119,11 +108,11 @@ func TestDirExistsNotExist(t *testing.T) {
 	ShowTestResult(got, want, t)
 }
 
+// TestDirEmpty tests the DirEmpty function by checking if an empty directory is detected as empty,
+// and a non-empty directory is detected as non-empty.
 func TestDirEmpty(t *testing.T) {
 	// Test with an empty directory
-	tmpdir, _ := os.MkdirTemp("", "tmpdir_empty")
-	defer os.RemoveAll(tmpdir) // Clean up after test
-
+	tmpdir := t.TempDir()
 	got := DirEmpty(tmpdir)
 	want := true
 
@@ -143,35 +132,39 @@ func TestDirEmpty(t *testing.T) {
 // TestDirsAdd tests the DirsAdd function by creating a subdirectory within a base directory,
 // and checking if it exists before and after the operation.
 func TestDirsAdd(t *testing.T) {
+	// Use a temporary directory as the base directory
+	tmpdir := t.TempDir()
 	var got [2]bool
 	var want = [2]bool{false, true}
 	var subdirs = []string{"subdir"}
 
 	t.Cleanup(func() {
-		os.RemoveAll("basedir") // Cleanup after test
+		os.RemoveAll(tmpdir)
 	})
 
-	got[0] = DirExists("basedir/subdir")
+	got[0] = DirExists(tmpdir + "/subdir")
 
-	DirsAdd("basedir", subdirs)
+	DirsAdd(tmpdir, subdirs)
 
-	got[1] = DirExists("basedir/subdir")
+	got[1] = DirExists(tmpdir + "/subdir")
 
 	ShowTestResult(got, want, t)
 }
 
 // TestDirSize tests the DirSize function by creating an empty directory and checking if its size is zero.
 func TestDirSize(t *testing.T) {
+	// Use a temporary directory
+	tmpdir := t.TempDir()
 	want := int64(0)
 	var got int64
 
 	t.Cleanup(func() {
-		os.RemoveAll("basedir") // Cleanup after test
+		os.RemoveAll(tmpdir)
 	})
 
-	DirsAdd("basedir", []string{})
+	DirsAdd(tmpdir, []string{})
 
-	got, _ = DirSize("basedir")
+	got, _ = DirSize(tmpdir)
 
 	ShowTestResult(got, want, t)
 }
