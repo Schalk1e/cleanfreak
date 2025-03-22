@@ -1,0 +1,29 @@
+---
+name: test
+
+on:  # yamllint disable-line rule:truthy
+  [push, pull_request]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        go-version: [1.22, 1.23, 1.24]  # Adjust for the latest Go versions
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Install Dependencies
+        run: go mod tidy
+
+      - name: Run Tests
+        run: go test -v ./...
