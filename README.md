@@ -14,6 +14,7 @@
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
+<!-- This is a comment and won't be visible in the rendered Markdown
 ## Setup
 
 <div align="center">
@@ -25,6 +26,7 @@ An opinionated workspace organisation and cleaning utility. (Work in progress, p
 <div align="center">
   <img src="assets/cleaning.gif" alt="Demo GIF" width="750"/>
 </div>
+-->
 
 ## Installation
 
