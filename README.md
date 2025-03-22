@@ -1,10 +1,10 @@
-<h1 align="Left">
+<h1 align="left">
   CleanFreak
 </h1>
 
-<div align="center">
+<div align="left">
   <p>
-    <img src="https://github.com/Schalk1e/cleanfreak/workflows/lint/badge.svg" width="120" />
+    <img src="https://github.com/Schalk1e/cleanfreak/workflows/lint/badge.svg" width="115" />
     <img src="https://github.com/Schalk1e/cleanfreak/workflows/test/badge.svg" width="120" />
     <img src="https://img.shields.io/badge/version-0.1.0-orange" width="110"/>
     <img src="https://img.shields.io/badge/license-MIT-blue" width="100"/>
