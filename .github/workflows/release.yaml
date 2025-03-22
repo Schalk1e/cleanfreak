@@ -21,7 +21,7 @@ jobs:
 
       - name: Install GoReleaser
         run: |
-          curl -sL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | bash
+          go install github.com/goreleaser/goreleaser@latest
 
       - name: Run GoReleaser
         env:
