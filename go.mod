@@ -1,6 +1,6 @@
 module github.com/Schalk1e/cleanfreak
 
-go 1.17
+go 1.24.1
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.4
@@ -8,6 +8,7 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
 	golang.org/x/sys v0.0.0-20210510120138-977fb7262007
+	gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 )
 
@@ -30,5 +31,4 @@ require (
 	golang.org/x/term v0.0.0-20210503060354-a79de5458b56 // indirect
 	golang.org/x/text v0.3.5 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

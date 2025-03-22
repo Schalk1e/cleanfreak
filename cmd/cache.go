@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"log"
 	"strconv"
 	"sync"
 
@@ -30,21 +31,20 @@ var cacheCmd = &cobra.Command{
 
 func CleanCache(cache_dirs []string, threshold float64, diagnose_text string) {
 	var cache_data [][]string
-	num := len(cache_dirs)
-
 	var wg sync.WaitGroup
-	wg.Add(num)
 
-	for i := 0; i < num; i++ {
-		go func(i int) {
+	wg.Add(len(cache_dirs))
+
+	for _, dir := range cache_dirs {
+		go func(dir string) {
 			defer wg.Done()
-			size, _ := core.DirSize(cache_dirs[i])
+			size, _ := core.DirSize(dir)
 			data := []string{
-				cache_dirs[i],
+				dir,
 				cmdutil.ByteStringParse(strconv.FormatInt(size, 10)),
 			}
 			cache_data = append(cache_data, data)
-		}(i)
+		}(dir)
 	}
 
 	wg.Wait()
@@ -53,17 +53,17 @@ func CleanCache(cache_dirs []string, threshold float64, diagnose_text string) {
 
 	if len(data) > 0 {
 		cmdutil.PrintDiagnoseFail(diagnose_text)
-		for i := 0; i < len(data); i++ {
-			files := core.List(data[i][0], false)
-			action := cmdutil.CacheDeleteSurvey(
-				data[i][0],
-				data[i][1],
-			)
+		for _, d := range data {
+			files := core.List(d[0], false)
+			action := cmdutil.CacheDeleteSurvey(d[0], d[1])
+
 			c := core.Clean{}
 			if action == "Y" {
-				for i := 1; i < len(files); i++ {
-					c.SourceFile = files[i]
-					c.FileDelete()
+				for _, file := range files[1:] {
+					c.SourceFile = file
+					if err := c.FileDelete(); err != nil {
+						log.Printf("Failed to delete file: %v", err)
+					}
 				}
 				cmdutil.PrintCleaned()
 			}

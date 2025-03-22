@@ -1,25 +1,16 @@
-<h1 align="center">
+<h1 align="Left">
   CleanFreak
 </h1>
 
 <div align="center">
   <p>
-    <img src="https://github.com/Schalk1e/cleanfreak/workflows/Lint/badge.svg" width="130" />
+    <img src="https://github.com/Schalk1e/cleanfreak/workflows/lint/badge.svg" width="120" />
+    <img src="https://github.com/Schalk1e/cleanfreak/workflows/test/badge.svg" width="120" />
     <img src="https://img.shields.io/badge/version-0.1.0-orange" width="110"/>
     <img src="https://img.shields.io/badge/license-MIT-blue" width="100"/>
 
   </p>
 </div>
-
-```sh
-> ~ cf
-                    "______________                  ________                  ______
-                    __  ____/__  /__________ __________  __/_________________ ___  /__
-                    _  /    __  /_  _ \  __ '/_  __ \_  /_ __  ___/  _ \  __ '/_  //_/
-                    / /___  _  / /  __/ /_/ /_  / / /  __/ _  /   /  __/ /_/ /_  ,<
-                    \____/  /_/  \___/\__,_/ /_/ /_//_/    /_/    \___/\__,_/ /_/|_|"
-
-```
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
@@ -84,3 +75,4 @@ Or allow the system to execute all tasks bu running:
 - Versioned Release
 - WSL does not have desktop or trash. Add checks when files do not exist...
 - Add trash support for windows.
+- Migrate survey dependency to https://github.com/charmbracelet/bubbletea

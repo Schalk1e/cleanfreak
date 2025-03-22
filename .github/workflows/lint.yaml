@@ -1,64 +1,23 @@
 ---
-name: Lint
-on:
-  push:
-    paths:
-      - .github/workflows/lint.yaml
-      - "**.go"
-      - go.mod
-      - go.sum
-  pull_request:
-    paths:
-      - .github/workflows/lint.yaml
-      - "**.go"
-      - go.mod
-      - go.sum
+name: lint
+on: [push, pull_request]  # yamllint disable-line rule:truthy
 
 permissions:
+  # Required: allow read access to the content for analysis.
   contents: read
+  # Optional: allow read access to pull request. Use with `only-new-issues` option.
+  pull-requests: read
+  # Optional: allow write access to checks to allow the action to annotate code in the PR.
+  checks: write
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Set up Go 1.18
-        uses: actions/setup-go@v3
+      - uses: actions/checkout@v4
+      - name: Install Go
+        uses: actions/setup-go@v5
         with:
-          go-version: 1.18
-
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Restore Go modules cache
-        uses: actions/cache@v3
-        with:
-          path: ~/go/pkg/mod
-          key: go-${{ runner.os }}-${{ hashFiles('go.mod') }}
-          restore-keys: |
-            go-${{ runner.os }}-
-      - name: Verify dependencies
-        run: |
-          go mod verify
-          go mod download
-          LINT_VERSION=1.46.0
-          curl -fsSL https://github.com/golangci/golangci-lint/releases/download/v${LINT_VERSION}/golangci-lint-${LINT_VERSION}-linux-amd64.tar.gz | \
-            tar xz --strip-components 1 --wildcards \*/golangci-lint
-          mkdir -p bin && mv golangci-lint bin/
-      - name: Run checks
-        run: |
-          STATUS=0
-          assert-nothing-changed() {
-            local diff
-            "$@" >/dev/null || return 1
-            if ! diff="$(git diff -U1 --color --exit-code)"; then
-              printf '\e[31mError: running `\e[1m%s\e[22m` results in modifications that you must check into version control:\e[0m\n%s\n\n' "$*" "$diff" >&2
-              git checkout -- .
-              STATUS=1
-            fi
-          }
-          assert-nothing-changed go fmt ./...
-          assert-nothing-changed go mod tidy
-          bin/golangci-lint run --out-format=github-actions --timeout=3m || STATUS=$?
-
-          exit $STATUS
+          go-version: stable
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6

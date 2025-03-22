@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path"
 
@@ -17,7 +18,7 @@ var downloadsCmd = &cobra.Command{
 	Short: "Runs cleanfreak on the downloads folder.",
 	Long: `
 This command will clean the user's downloads folder by prompting the user
-to either transfer those files to the appropriate location in the cleanfreak 
+to either transfer those files to the appropriate location in the cleanfreak
 project directory, or remove them.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
@@ -76,14 +77,18 @@ func CleanDownloads(target string) {
 
 			c.SourceFile = files[i]
 			c.TargetFile = path.Join(folder, name)
-			c.FileTransfer()
-
+			if err := c.FileTransfer(); err != nil {
+				log.Printf("File not successfully transfered: %v", err)
+			}
 			cmdutil.PrintMoved()
 
 		} else if action == "Delete" {
 
 			c.SourceFile = files[i]
-			c.FileDelete()
+
+			if err := c.FileDelete(); err != nil {
+				log.Printf("File not successfully removed: %v", err)
+			}
 
 			cmdutil.PrintDeleted()
 

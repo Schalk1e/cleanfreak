@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"log"
 	"runtime"
 
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
@@ -43,7 +44,9 @@ func CleanTrash(target string) {
 	if action == "Y" {
 		for i := 1; i < len(files); i++ {
 			c.SourceFile = files[i]
-			c.FileDelete()
+			if err := c.FileDelete(); err != nil {
+				log.Printf("File not successfully removed: %v", err)
+			}
 		}
 		cmdutil.PrintDeleted()
 	}

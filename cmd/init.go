@@ -17,7 +17,7 @@ var initCmd = &cobra.Command{
 	Short: "Initialise a cleanfreak project folder.",
 	Long: `
 This command will initialise a default cleanfreak folder in the specified
-location that contains a number of subfolders that are intended to provide 
+location that contains a number of subfolders that are intended to provide
 appropriate homes for most filetypes.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
