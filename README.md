@@ -15,10 +15,6 @@
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
-<div align="center">
-  <img src="assets/usage.gif" alt="Demo GIF" width="750"/>
-</div>
-
 ## Installation
 
 ### Manual
