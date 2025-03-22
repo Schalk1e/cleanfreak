@@ -1,6 +1,7 @@
 package core
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 	"testing"
@@ -86,7 +87,9 @@ func TestFileTransfer(t *testing.T) {
 
 	want := []string{tmpdir, filepath.Join(tmpdir, "new_file.txt")}
 
-	c.FileTransfer()
+	if err := c.FileTransfer(); err != nil {
+		log.Printf("File not successfully transfered: %v", err)
+	}
 
 	got := List(tmpdir, false)
 
@@ -110,7 +113,9 @@ func TestFileDelete(t *testing.T) {
 
 	want := []string{tmpdir}
 
-	c.FileDelete()
+	if err := c.FileDelete(); err != nil {
+		log.Printf("File not successfully removed: %v", err)
+	}
 
 	got := List(tmpdir, false)
 

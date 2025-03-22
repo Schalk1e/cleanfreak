@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path"
 
@@ -75,14 +76,18 @@ func CleanDesktop(target string) {
 
 			c.SourceFile = files[i]
 			c.TargetFile = path.Join(folder, name)
-			c.FileTransfer()
+			if err := c.FileTransfer(); err != nil {
+				log.Printf("File not successfully transfered: %v", err)
+			}
 
 			cmdutil.PrintMoved()
 
 		} else if action == "Delete" {
 
 			c.SourceFile = files[i]
-			c.FileDelete()
+			if err := c.FileDelete(); err != nil {
+				log.Printf("File not successfully removed: %v", err)
+			}
 
 			cmdutil.PrintDeleted()
 
