@@ -14,19 +14,9 @@
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
-<!-- This is a comment and won't be visible in the rendered Markdown
-## Setup
-
 <div align="center">
-  <img src="assets/setup.gif" alt="Demo GIF" width="750"/>
+  <img src="assets/usage.gif" alt="Demo GIF" width="750"/>
 </div>
-
-## Diagnosing and Cleaning
-
-<div align="center">
-  <img src="assets/cleaning.gif" alt="Demo GIF" width="750"/>
-</div>
--->
 
 ## Installation
 
