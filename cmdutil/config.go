@@ -9,6 +9,36 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// NOTE: Defines a type which is a function that takes
+// a pointer to settings and returns nothing.
+type ConfigOption func(*Settings)
+
+func WithDefaults() []ConfigOption {
+	return []ConfigOption{
+		WithConfigInitPaths(ConfigInitPaths()),
+		WithCachePaths(CachePaths()),
+		WithCacheSize(CacheSize()),
+	}
+}
+
+func WithConfigInitPaths(paths []string) ConfigOption {
+	return func(s *Settings) {
+		s.Subdirs = paths
+	}
+}
+
+func WithCachePaths(paths []string) ConfigOption {
+	return func(s *Settings) {
+		s.Cachedirs = paths
+	}
+}
+
+func WithCacheSize(size float64) ConfigOption {
+	return func(s *Settings) {
+		s.Threshold = size
+	}
+}
+
 type Settings struct {
 	Directory string
 	Subdirs   []string
@@ -16,22 +46,17 @@ type Settings struct {
 	Threshold float64
 }
 
-func BuildConfig(dir string) {
+func BuildConfig(dir string, opts ...ConfigOption) {
 	fpath := path.Join(dir, ".cleanfreak.yaml")
-
-	// Ask user for initialisation paths.
-	config_init_paths := ConfigInitPaths()
-	// Ask user for cache folders to monitor.
-	cache_paths := CachePaths()
-	//Ask user for max size of cache dirs.
-	threshold := CacheSize()
 
 	config := Settings{
 		Directory: "cleanfreak",
-		Subdirs:   config_init_paths,
-		Cachedirs: cache_paths,
-		Threshold: threshold,
 	}
+
+	for _, opt := range opts {
+		opt(&config)
+	}
+
 	data, err := yaml.Marshal(&config)
 	if err != nil {
 		log.Fatal(err)
