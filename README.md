@@ -62,8 +62,6 @@ Or allow the system to execute all tasks bu running:
 
 # TODO
 
-- Tests.
-- Coverage Badge
 - Versioned Release
 - WSL does not have desktop or trash. Add checks when files do not exist...
 - Add trash support for windows.
