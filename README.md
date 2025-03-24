@@ -45,6 +45,8 @@ Note that, for trash support, terminal might need the full disk access setting e
 
 `cf diagnose`
 
+Note: For MacOS users, accessing `/Users/user/.Trash` will likely require giving your terminal application full disk access.
+
 ### Run Clean
 
 Before executing clean, cf will prompt the user to first execute `cf init` to initialise a cleanfreak directory that it will manage. The config file for this directory will be created in $HOME/.cleanfreak.yaml if no config is provided. Else, the user may specify his or her own config path and pass it to `cf init`.
@@ -63,4 +65,3 @@ Or allow the system to execute all tasks bu running:
 - WSL does not have desktop or trash. Add checks when files do not exist...
 - Add trash support for windows.
 - Migrate survey dependency to https://github.com/charmbracelet/bubbletea
-- Deal with trash permissions issue in macOS
