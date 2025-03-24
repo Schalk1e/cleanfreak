@@ -15,6 +15,8 @@
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
+<img alt="CleanFreak" src="/assets/usage.gif" width="850" />
+
 ## Installation
 
 ### Manual
