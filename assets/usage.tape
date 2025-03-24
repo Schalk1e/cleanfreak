@@ -17,7 +17,7 @@ Sleep 1s
 # Diagnose system
 Type "cf diagnose"
 Enter
-Sleep 2s
+Sleep 2.5s
 
 # Action clean on downloads
 Type "cf clean downloads"
@@ -25,9 +25,9 @@ Enter
 Sleep 2s
 Down@500ms 1
 Enter
-Sleep 2s
+Sleep 2.5s
 
 # Diagnose system again
 Type "cf diagnose"
 Enter
-Sleep 1s
+Sleep 2.5s
