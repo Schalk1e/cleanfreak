@@ -12,12 +12,12 @@ Set Shell zsh
 Sleep 1s
 Type "cf"
 Enter
-Sleep 500ms
+Sleep 2s
 
 # Diagnose system
 Type "cf diagnose"
 Enter
-Sleep 1s
+Sleep 2s
 
 # Action clean on downloads
 Type "cf clean downloads"
@@ -25,10 +25,10 @@ Enter
 Sleep 1.5s
 Down@500ms 1
 Enter
-Sleep 1s
+Sleep 2s
 
 # Diagnose system again
 Type "cf diagnose"
 Enter
-Sleep 1s
+Sleep 2s
 
