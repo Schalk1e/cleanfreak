@@ -2,7 +2,7 @@
 Output usage.gif
 
 # Set up a 1200x600 terminal with 46px font.
-Set TypingSpeed 150ms
+Set TypingSpeed 250ms
 Set FontSize 22
 Set Width 1200
 Set Height 950
