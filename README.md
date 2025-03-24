@@ -4,18 +4,18 @@
 
 <div align="left">
   <p>
-    <img src="https://github.com/Schalk1e/cleanfreak/workflows/lint/badge.svg" width="90" />
-    <img src="https://github.com/Schalk1e/cleanfreak/workflows/release/badge.svg" width="115" />
-    <img src="https://github.com/Schalk1e/cleanfreak/workflows/test/badge.svg" width="95" />
-    <img src="https://img.shields.io/badge/version-0.1.0-orange" width="85"/>
-    <img src="https://img.shields.io/badge/license-MIT-blue" width="80"/>
+    <img src="https://github.com/Schalk1e/cleanfreak/workflows/lint/badge.svg" width="110" />
+    <img src="https://github.com/Schalk1e/cleanfreak/workflows/release/badge.svg" width="135" />
+    <img src="https://github.com/Schalk1e/cleanfreak/workflows/test/badge.svg" width="115" />
+    <img src="https://img.shields.io/badge/version-0.1.0-orange" width="105"/>
+    <img src="https://img.shields.io/badge/license-MIT-blue" width="100"/>
 
   </p>
 </div>
 
 An opinionated workspace organisation and cleaning utility. (Work in progress, please be gentle.)
 
-<img alt="CleanFreak" src="/assets/usage.gif" width="800" />
+<img alt="CleanFreak" src="/assets/usage.gif" width="850" />
 
 ## Installation
 
