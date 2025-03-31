@@ -59,7 +59,7 @@ func cacheReport(cache_dirs []string, threshold float64) {
 	var wg sync.WaitGroup
 	wg.Add(num)
 
-	for i := 0; i < num; i++ {
+	for i := range num {
 		go func(i int) {
 			defer wg.Done()
 			size, _ := core.DirSize(cache_dirs[i])
@@ -85,7 +85,7 @@ func cacheReport(cache_dirs []string, threshold float64) {
 				),
 			),
 		)
-		for i := 0; i < len(cache_data); i++ {
+		for i := range len(cache_data) {
 			sum += cmdutil.FloatFromGBString(
 				cache_data[i][len(cache_data[i])-1],
 			)
