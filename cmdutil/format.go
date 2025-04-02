@@ -49,3 +49,8 @@ func PrintOrder() {
 func PrintCleaned() {
 	fmt.Println("╰ " + green + tick + " Cleaned" + end)
 }
+
+func PrintDirectoryNotFound(dir string) {
+	fmt.Println("\n" + bold + cyan + "Not Found: " + end + dir)
+	fmt.Println("╰ " + "NOTE: No action taken. Soon, we will support configurable directories :)")
+}

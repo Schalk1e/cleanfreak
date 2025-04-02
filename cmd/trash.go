@@ -25,6 +25,12 @@ var trashCmd = &cobra.Command{
 			cmdutil.PrintWarning("Cleaning Trash not yet supported on this OS! Please contribute!")
 			return
 		}
+
+		trashdir := d.GetTrash()
+		if !core.DirExists(trashdir) {
+			cmdutil.PrintDirectoryNotFound(trashdir)
+			return
+		}
 		if core.DirEmpty(d.GetTrash()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			cmdutil.PrintOrder()

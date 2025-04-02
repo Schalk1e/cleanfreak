@@ -30,6 +30,7 @@ project directory, or remove them.`,
 		if err != nil {
 			panic(err)
 		}
+
 		str, ok := cf_root.(string)
 		if !ok {
 			fmt.Println("Could not find cf_root in config.")
@@ -39,8 +40,14 @@ project directory, or remove them.`,
 			fmt.Println("\nCould not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
 			return
 		}
+
 		d := core.Dir{}
-		if core.DirEmpty(d.GetDesktop()) {
+		desktopdir := d.GetDesktop()
+		if !core.DirExists(desktopdir) {
+			cmdutil.PrintDirectoryNotFound(desktopdir)
+			return
+		}
+		if core.DirEmpty(desktopdir) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			cmdutil.PrintOrder()
 			return

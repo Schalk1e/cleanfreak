@@ -27,8 +27,6 @@ project directory, or remove them.`,
 		cf_root := viper.Get("directory")
 		diagnose_text := "No files in the Downloads folder."
 
-		d := core.Dir{}
-
 		if err != nil {
 			panic(err)
 		}
@@ -37,9 +35,16 @@ project directory, or remove them.`,
 			fmt.Println("Could not find cf_root in config.")
 			return
 		}
+
 		if !core.DirExists(path.Join(homedir, str)) {
 			fmt.Println("\nCould not find cleanfreak project directory. Kindly execute cf init before running cf clean.")
 			return
+		}
+
+		d := core.Dir{}
+		downloadsdir := d.GetDownloads()
+		if !core.DirExists(downloadsdir) {
+			cmdutil.PrintDirectoryNotFound(downloadsdir)
 		}
 		if core.DirEmpty(d.GetDownloads()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
