@@ -52,5 +52,5 @@ func PrintCleaned() {
 
 func PrintDirectoryNotFound(dir string) {
 	fmt.Println("\n" + bold + cyan + "Not Found: " + end + dir)
-	fmt.Println("╰ " + "NOTE: No action taken. Soon, we will support configurable directories :)")
+	fmt.Println("╰ " + bold + "NOTE: " + end + "No action taken. Soon, we will support configurable directories.")
 }
