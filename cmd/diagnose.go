@@ -34,12 +34,16 @@ back to the user.`,
 			dirnames = dirnames[:2]
 		}
 		for indx, dir := range dirs {
-			if core.DirEmpty((dir)) {
-				text := fmt.Sprintf("No files in the %s folder.", dirnames[indx])
-				cmdutil.PrintDiagnoseSuccess(text)
+			if core.DirExists((dir)) {
+				if core.DirEmpty((dir)) {
+					text := fmt.Sprintf("No files in the %s folder.", dirnames[indx])
+					cmdutil.PrintDiagnoseSuccess(text)
+				} else {
+					text := fmt.Sprintf("No files in the %s folder.", dirnames[indx])
+					cmdutil.PrintDiagnoseFail(text)
+				}
 			} else {
-				text := fmt.Sprintf("No files in the %s folder.", dirnames[indx])
-				cmdutil.PrintDiagnoseFail(text)
+				cmdutil.PrintDirectoryNotFound((dir))
 			}
 		}
 		if !trash_supported {
