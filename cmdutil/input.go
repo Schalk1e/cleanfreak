@@ -72,16 +72,16 @@ func FileNameSurvey(filename string) string {
 	name := ""
 	prompt := &survey.Input{
 		Message: "Please enter filename: ",
+		Suggest: func(toComplete string) []string {
+			// Return the filename if it matches the user's partial input
+			if strings.HasPrefix(filename, toComplete) {
+				return []string{filename}
+			}
+			return nil
+		},
 	}
 
-	prompt_config := &survey.PromptConfig{
-		SuggestInput: filename,
-	}
-
-	if surveyErr := survey.AskOne(prompt, &name, func(opts *survey.AskOptions) error {
-		opts.PromptConfig = *prompt_config
-		return nil
-	}); surveyErr != nil {
+	if surveyErr := survey.AskOne(prompt, &name); surveyErr != nil {
 		fmt.Println(surveyErr.Error())
 	}
 
