@@ -63,7 +63,7 @@ Or allow the system to execute all tasks bu running:
 
 - [x] Versioned Release
 - [x] WSL does not have desktop or trash. Add checks when files do not exist...
-- [ ] On move, prepopulate filename.
+- [x] On move, prepopulate filename.
 - [ ] Make the cleanfreak dir optional... Otherwise move things to Documents or elsewhere on the filesystem? Maybe use `os.UserHomeDir`?
 - [ ] Migrate survey dependency to https://github.com/charmbracelet/bubbletea
 - [ ] Add trash support for windows.
