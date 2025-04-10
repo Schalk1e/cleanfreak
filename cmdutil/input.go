@@ -68,13 +68,20 @@ func DirSurvey(opts []string) string {
 // FileNameSurvey prompts the user to input a filename.
 //
 // This function simply asks the user to enter a filename and returns the input.
-func FileNameSurvey() string {
+func FileNameSurvey(filename string) string {
 	name := ""
 	prompt := &survey.Input{
 		Message: "Please enter filename: ",
 	}
 
-	if surveyErr := survey.AskOne(prompt, &name); surveyErr != nil {
+	prompt_config := &survey.PromptConfig{
+		SuggestInput: filename,
+	}
+
+	if surveyErr := survey.AskOne(prompt, &name, func(opts *survey.AskOptions) error {
+		opts.PromptConfig = *prompt_config
+		return nil
+	}); surveyErr != nil {
 		fmt.Println(surveyErr.Error())
 	}
 

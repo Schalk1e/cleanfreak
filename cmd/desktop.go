@@ -79,7 +79,7 @@ func CleanDesktop(target string) {
 
 			opts := core.List(path.Join(homedir, target), true)
 			folder := cmdutil.DirSurvey(opts)
-			name := cmdutil.FileNameSurvey()
+			name := cmdutil.FileNameSurvey(filename)
 
 			c.SourceFile = files[i]
 			c.TargetFile = path.Join(folder, name)
