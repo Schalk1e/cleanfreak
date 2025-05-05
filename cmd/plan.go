@@ -3,6 +3,8 @@ package cmd
 import (
 	"fmt"
 
+	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
+	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +15,13 @@ var planCmd = &cobra.Command{
 on every file that is found. In this case, it is best to construct a clean plan
 with this command to execute later.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Plan called.")
+		d := core.Dir{}
+		// File select on downloads directory.
+		m := cmdutil.FileTreeSelect(d.GetDownloads())
+
+		fmt.Println(m.SelectedFiles)
+		// At this point, we probably ask the user whether they'd like to audit
+		// their selection, or if they're happy.
 	},
 }
 
