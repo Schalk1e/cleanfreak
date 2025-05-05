@@ -2,6 +2,9 @@
 
 version: '3'
 
+vars:
+  GOPATH: $(go env GOPATH)
+
 tasks:
 
   lint:
@@ -13,3 +16,8 @@ tasks:
     desc: Run tests
     cmds:
       - go test ./... -v
+
+  build:
+    desc: Build cf
+    cmds:
+      - go build -o "{{.GOPATH}}/bin/cf"
