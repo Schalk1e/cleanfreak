@@ -1,0 +1,23 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GOPATH: $(go env GOPATH)
+
+tasks:
+
+  lint:
+    desc: Run lint
+    cmds:
+      - golangci-lint run
+
+  test:
+    desc: Run tests
+    cmds:
+      - go test ./... -v
+
+  build:
+    desc: Build cf
+    cmds:
+      - go build -o "{{.GOPATH}}/bin/cf"
