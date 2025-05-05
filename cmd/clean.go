@@ -16,7 +16,7 @@ var cleanCmd = &cobra.Command{
 		fmt.Println("Clean called.")
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return errors.New("\n\nRemember to specify an object to clean!\n")
+		return errors.New("\n\nRemember to specify an object to clean")
 	},
 }
 

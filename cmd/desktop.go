@@ -75,8 +75,8 @@ func CleanDesktop(target string) {
 		c := core.Clean{}
 		action := cmdutil.FileSurvey(filename)
 
-		if action == "Move" {
-
+		switch action {
+		case "Move":
 			opts := core.List(path.Join(homedir, target), true)
 			folder := cmdutil.DirSurvey(opts)
 			name := cmdutil.FileNameSurvey(filename)
@@ -88,25 +88,20 @@ func CleanDesktop(target string) {
 			}
 
 			cmdutil.PrintMoved()
-
-		} else if action == "Delete" {
-
+		case "Delete":
 			c.SourceFile = files[i]
 			if err := c.FileDelete(); err != nil {
 				log.Printf("File not successfully removed: %v", err)
 			}
 
 			cmdutil.PrintDeleted()
-
-		} else if action == "View" {
-
+		case "View":
 			open_err := open.Run(files[i])
 			if open_err != nil {
 				fmt.Println(open_err.Error())
 			}
 			i = i - 1
-
-		} else {
+		default:
 			break
 		}
 	}
