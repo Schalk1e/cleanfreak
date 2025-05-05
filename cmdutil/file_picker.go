@@ -52,7 +52,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// error to the user and clear.
 		// Get the path of the selected file.
 		if slices.Contains(m.SelectedFiles, path) {
-			m.err = errors.New("You got this file already! Please select another file or save your selection.")
+			m.err = errors.New("you have this file already. kindly select another file or save your selection")
 			// Can we do this without returning?
 			return m, tea.Batch(cmd, clearErrorAfter(2*time.Second))
 		} else {
