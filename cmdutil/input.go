@@ -123,7 +123,6 @@ func CacheDeleteSurvey(path string, size string) string {
 }
 
 // ConfigRoot prompts the user to enter the path where the cleanfreak directory should be created.
-//
 // This function returns the user's input for the directory path.
 func ConfigRoot() string {
 	name := ""

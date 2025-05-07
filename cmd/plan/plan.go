@@ -1,4 +1,4 @@
-package cmd
+package plan
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var planCmd = &cobra.Command{
+var PlanCmd = &cobra.Command{
 	Use:   "plan",
 	Short: "Prompts the user to construct a plan (in yaml?) to execute later.",
 	Long: `You might want to defer actions to later, or perhaps not take action
@@ -23,8 +23,4 @@ with this command to execute later.`,
 		// At this point, we probably ask the user whether they'd like to audit
 		// their selection, or if they're happy.
 	},
-}
-
-func init() {
-	rootCmd.AddCommand(planCmd)
 }

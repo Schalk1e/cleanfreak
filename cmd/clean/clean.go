@@ -1,25 +1,16 @@
-package cmd
+package clean
 
 import (
-	"fmt"
-
 	"errors"
 
 	"github.com/spf13/cobra"
 )
 
-var cleanCmd = &cobra.Command{
+var CleanCmd = &cobra.Command{
 	Use:   "clean",
 	Short: "Initialises clean procedure for the specified item.",
 	Long:  `This command will call the cleaning procedure for the specified item.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Clean called.")
-	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return errors.New("\n\nRemember to specify an object to clean")
 	},
-}
-
-func init() {
-	rootCmd.AddCommand(cleanCmd)
 }

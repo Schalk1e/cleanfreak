@@ -1,4 +1,4 @@
-package cmd
+package clean
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var desktopCmd = &cobra.Command{
+var DesktopCmd = &cobra.Command{
 	Use:   "desktop",
 	Short: "Runs cleanfreak on the desktop folder.",
 	Long: `
@@ -105,8 +105,4 @@ func CleanDesktop(target string) {
 			break
 		}
 	}
-}
-
-func init() {
-	cleanCmd.AddCommand(desktopCmd)
 }

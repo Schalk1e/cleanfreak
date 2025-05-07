@@ -6,7 +6,7 @@ import (
 	"os"
 	"path"
 
-	"gopkg.in/yaml.v3"
+	"gopkg.in/yaml.v2"
 )
 
 type ConfigOption func(*Settings)
@@ -42,7 +42,7 @@ func WithCacheSize(size float64) ConfigOption {
 	}
 }
 
-// Settings represents the configuration structure for the application.
+// Settings represents the configuration structure for the application's config.
 type Settings struct {
 	Directory string
 	Subdirs   []string

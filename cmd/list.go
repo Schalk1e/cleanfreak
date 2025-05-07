@@ -15,7 +15,3 @@ The list command simply returns a list of items in an object specified by the us
 		return errors.New("\n\nRemember to specify an object to list")
 	},
 }
-
-func init() {
-	rootCmd.AddCommand(listCmd)
-}
