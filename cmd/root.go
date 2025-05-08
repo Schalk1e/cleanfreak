@@ -41,6 +41,7 @@ func init() {
 	clean.CleanCmd.AddCommand(clean.CacheCmd)
 	clean.CleanCmd.AddCommand(clean.TrashCmd)
 	RootCmd.AddCommand(plan.PlanCmd)
+	plan.PlanCmd.AddCommand(plan.DownloadsCmd)
 }
 
 func initConfig() {

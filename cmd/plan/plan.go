@@ -1,10 +1,8 @@
 package plan
 
 import (
-	"fmt"
+	"errors"
 
-	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
-	core "github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
 )
 
@@ -14,13 +12,7 @@ var PlanCmd = &cobra.Command{
 	Long: `You might want to defer actions to later, or perhaps not take action
 on every file that is found. In this case, it is best to construct a clean plan
 with this command to execute later.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		d := core.Dir{}
-		// File select on downloads directory.
-		m := cmdutil.FileTreeSelect(d.GetDownloads())
-
-		fmt.Println(m.SelectedFiles)
-		// At this point, we probably ask the user whether they'd like to audit
-		// their selection, or if they're happy.
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return errors.New("\n\n Remember to specify on object to construct a plan for")
 	},
 }
