@@ -6,9 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"gopkg.in/yaml.v2"
-
 	core "github.com/Schalk1e/cleanfreak/core"
+	"gopkg.in/yaml.v2"
 )
 
 // mockConfigInitPaths returns predefined initialization paths for testing.

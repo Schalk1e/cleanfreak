@@ -99,7 +99,3 @@ func cacheReport(cache_dirs []string, threshold float64) {
 		cmdutil.PrintDiagnoseSuccess("No caches over the configured threshold.")
 	}
 }
-
-func init() {
-	rootCmd.AddCommand(diagnoseCmd)
-}
