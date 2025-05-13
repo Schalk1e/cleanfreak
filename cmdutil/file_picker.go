@@ -70,13 +70,16 @@ func (m file_picker_model) View() string {
 	if m.quitting {
 		return ""
 	}
+
 	var s strings.Builder
+
 	s.WriteString("\n  ")
-	if m.err != nil {
+	switch {
+	case m.err != nil:
 		s.WriteString(m.filepicker.Styles.DisabledFile.Render(m.err.Error()))
-	} else if len(m.SelectedFiles) == 0 {
+	case len(m.SelectedFiles) == 0:
 		s.WriteString(m.title)
-	} else {
+	default:
 		s.WriteString(
 			"Selected files: " + m.filepicker.Styles.Selected.Render(
 				strconv.Itoa(len(m.SelectedFiles))),
@@ -84,6 +87,7 @@ func (m file_picker_model) View() string {
 	}
 	s.WriteString("\n\n" + m.filepicker.View() + "\n")
 	s.WriteString("You can use ctrl+c, q or s to quit and save your selection.")
+
 	return s.String()
 }
 
