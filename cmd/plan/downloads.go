@@ -18,8 +18,14 @@ later, or it can be applied directly after the build with the apply flag.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		d := core.Dir{}
 
-		m := cmdutil.FileTreeSelect(d.GetDownloads())
+		// Steps to do:
+		// Run filepicker once with Files to Delete as the title.
+		// Run filepicker again with Files to Move as the title.
+		// Ensure files to move don't contain any selections from files to
+		// delete. (Use exclusions.)
 
-		fmt.Println(m.SelectedFiles)
+		filepicker_model := cmdutil.FileTreeSelect(d.GetDownloads())
+
+		fmt.Println(filepicker_model.SelectedFiles)
 	},
 }

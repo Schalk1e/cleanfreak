@@ -12,7 +12,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-type model struct {
+type file_picker_model struct {
 	filepicker    filepicker.Model
 	SelectedFiles []string
 	quitting      bool
@@ -27,11 +27,11 @@ func clearErrorAfter(t time.Duration) tea.Cmd {
 	})
 }
 
-func (m model) Init() tea.Cmd {
+func (m file_picker_model) Init() tea.Cmd {
 	return m.filepicker.Init()
 }
 
-func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m file_picker_model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -63,7 +63,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
-func (m model) View() string {
+func (m file_picker_model) View() string {
 	if m.quitting {
 		return ""
 	}
@@ -84,19 +84,19 @@ func (m model) View() string {
 	return s.String()
 }
 
-func FileTreeSelect(dir string) model {
+func FileTreeSelect(dir string) file_picker_model {
 	fp := filepicker.New()
 	fp.CurrentDirectory = dir
 
-	m := model{
+	m := file_picker_model{
 		filepicker: fp,
 	}
 	tm, _ := tea.NewProgram(&m).Run()
-	mm := tm.(model)
+	mm := tm.(file_picker_model)
 	fmt.Println("\n  You selected: " + m.filepicker.Styles.Selected.Render(
 		strconv.Itoa(len(mm.SelectedFiles))+" file(s) in total.") + "\n",
 	)
 
-	// Return model struct after user exits or saves.
+	// Return file_picker_model struct after user exits or saves.
 	return mm
 }
