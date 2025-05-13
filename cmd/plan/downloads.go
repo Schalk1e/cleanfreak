@@ -24,7 +24,7 @@ later, or it can be applied directly after the build with the apply flag.`,
 		// Ensure files to move don't contain any selections from files to
 		// delete. (Use exclusions.)
 
-		filepicker_model := cmdutil.FileTreeSelect(d.GetDownloads())
+		filepicker_model := cmdutil.FileTreeSelect(d.GetDownloads(), "Mark files for deletion:")
 
 		fmt.Println(filepicker_model.SelectedFiles)
 	},

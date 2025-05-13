@@ -15,6 +15,7 @@ import (
 type file_picker_model struct {
 	filepicker    filepicker.Model
 	SelectedFiles []string
+	title         string
 	quitting      bool
 	err           error
 }
@@ -52,7 +53,9 @@ func (m file_picker_model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// error to the user and clear.
 		// Get the path of the selected file.
 		if slices.Contains(m.SelectedFiles, path) {
-			m.err = errors.New("you have this file already. kindly select another file or save your selection")
+			m.err = errors.New(
+				"you have this file already. kindly select another file or save your selection",
+			)
 			// Can we do this without returning?
 			return m, tea.Batch(cmd, clearErrorAfter(2*time.Second))
 		} else {
@@ -72,7 +75,7 @@ func (m file_picker_model) View() string {
 	if m.err != nil {
 		s.WriteString(m.filepicker.Styles.DisabledFile.Render(m.err.Error()))
 	} else if len(m.SelectedFiles) == 0 {
-		s.WriteString("Pick a file:")
+		s.WriteString(m.title)
 	} else {
 		s.WriteString(
 			"Selected files: " + m.filepicker.Styles.Selected.Render(
@@ -84,12 +87,13 @@ func (m file_picker_model) View() string {
 	return s.String()
 }
 
-func FileTreeSelect(dir string) file_picker_model {
+func FileTreeSelect(dir string, title string) file_picker_model {
 	fp := filepicker.New()
 	fp.CurrentDirectory = dir
 
 	m := file_picker_model{
 		filepicker: fp,
+		title:      title,
 	}
 	tm, _ := tea.NewProgram(&m).Run()
 	mm := tm.(file_picker_model)
