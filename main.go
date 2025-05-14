@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/Schalk1e/cleanfreak/cmd"
+import cmd "github.com/Schalk1e/cleanfreak/cmd"
 
 func main() {
 	cmd.Execute()

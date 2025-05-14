@@ -1,4 +1,4 @@
-package cmd
+package clean
 
 import (
 	"log"
@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cacheCmd = &cobra.Command{
+var CacheCmd = &cobra.Command{
 	Use:   "cache",
 	Short: "Runs cleanfreak on the user's cache folder.",
 	Long:  `This command will clean the user's cache folder.`,
@@ -72,8 +72,4 @@ func CleanCache(cache_dirs []string, threshold float64, diagnose_text string) {
 		cmdutil.PrintDiagnoseSuccess(diagnose_text)
 		cmdutil.PrintOrder()
 	}
-}
-
-func init() {
-	cleanCmd.AddCommand(cacheCmd)
 }

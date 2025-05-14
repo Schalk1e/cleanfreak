@@ -51,8 +51,6 @@ appropriate homes for most filetypes.`,
 }
 
 func init() {
-	rootCmd.AddCommand(initCmd)
-
 	initCmd.Flags().String("path", "", "Path at which to create cleanfreak directory (Default is Home).")
 	initCmd.Flags().BoolVar(&rerun, "rerun", false, "Re-init cleanfreak directory from config - adds new directories and keeps existing.")
 }

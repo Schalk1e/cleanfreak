@@ -18,7 +18,3 @@ The items command will list the different items that cleanfreak will check for c
 
 	},
 }
-
-func init() {
-	listCmd.AddCommand(itemsCmd)
-}
