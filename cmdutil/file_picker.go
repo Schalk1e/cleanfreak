@@ -73,7 +73,7 @@ func (m file_picker_model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Batch(cmd, clearErrorAfter(2*time.Second))
 		case slices.Contains(m.disallowed_files, path):
 			m.err = errors.New(
-				"this file is already marked for deletion, please select another",
+				"you have this file already. kindly select another file or save your selection",
 			)
 			return m, tea.Batch(cmd, clearErrorAfter(2*time.Second))
 		default:
