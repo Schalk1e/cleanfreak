@@ -13,15 +13,26 @@ import (
 )
 
 type file_picker_model struct {
-	filepicker    filepicker.Model
+	// The fp model
+	filepicker filepicker.Model
+
+	// List of files that the user selected
 	SelectedFiles []string
-	title         string
-	quitting      bool
-	err           error
+
+	// So we can have a title with the fp
+	// This is so we can explain what purpose the files are being selected for
+	title string
+
+	// To store the quit signal
+	quitting bool
+
+	// To handle possible errors
+	err error
 }
 
 type clearErrorMsg struct{}
 
+// We want to show a temporary error if a file is selected more than once
 func clearErrorAfter(t time.Duration) tea.Cmd {
 	return tea.Tick(t, func(_ time.Time) tea.Msg {
 		return clearErrorMsg{}
@@ -49,14 +60,11 @@ func (m file_picker_model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	// Did the user select a file?
 	if didSelect, path := m.filepicker.DidSelectFile(msg); didSelect {
-		// If user selects a path already in selected files, display an
-		// error to the user and clear.
-		// Get the path of the selected file.
+		// If user selects a path already in selected files, display an error
 		if slices.Contains(m.SelectedFiles, path) {
 			m.err = errors.New(
 				"you have this file already. kindly select another file or save your selection",
 			)
-			// Can we do this without returning?
 			return m, tea.Batch(cmd, clearErrorAfter(2*time.Second))
 		} else {
 			m.SelectedFiles = append(m.SelectedFiles, path)
@@ -91,14 +99,25 @@ func (m file_picker_model) View() string {
 	return s.String()
 }
 
-func FileTreeSelect(dir string, title string) file_picker_model {
+func initialModel(dir string, title string, allowed_types []string) file_picker_model {
 	fp := filepicker.New()
 	fp.CurrentDirectory = dir
+	fp.AllowedTypes = allowed_types
 
-	m := file_picker_model{
+	im := file_picker_model{
 		filepicker: fp,
 		title:      title,
 	}
+
+	return im
+}
+
+func FileTreeSelect(dir string, title string, allowed_types []string) file_picker_model {
+	// We want the option of excluding already select files.
+	// We can pass exact filepaths to allowed_types to ensure only these are
+	// selectable.
+	m := initialModel(dir, title, allowed_types)
+
 	tm, _ := tea.NewProgram(&m).Run()
 	mm := tm.(file_picker_model)
 	fmt.Println("\n  You selected: " + m.filepicker.Styles.Selected.Render(
