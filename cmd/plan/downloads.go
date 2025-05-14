@@ -32,8 +32,15 @@ later, or it can be applied directly after the build with the apply flag.`,
 		// Add state checker.
 		// Add plan apply.
 
-		filepicker_model := cmdutil.FileTreeSelect(d.GetDownloads(), "Mark files for deletion:", []string{})
+		deletion := cmdutil.FileTreeSelect(
+			d.GetDownloads(), "Mark files for deletion:", []string{},
+		)
 
-		fmt.Println(filepicker_model.SelectedFiles)
+		move := cmdutil.FileTreeSelect(
+			d.GetDownloads(), "Mark files to be moved:", deletion.SelectedFiles,
+		)
+
+		fmt.Println(deletion)
+		fmt.Println(move)
 	},
 }

@@ -19,6 +19,10 @@ type file_picker_model struct {
 	// List of files that the user selected
 	SelectedFiles []string
 
+	// In some cases, we want to pass a slice of
+	// pre-selected files to be disallowed.
+	disallowed_files []string
+
 	// So we can have a title with the fp
 	// This is so we can explain what purpose the files are being selected for
 	title string
@@ -61,12 +65,18 @@ func (m file_picker_model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	// Did the user select a file?
 	if didSelect, path := m.filepicker.DidSelectFile(msg); didSelect {
 		// If user selects a path already in selected files, display an error
-		if slices.Contains(m.SelectedFiles, path) {
+		switch {
+		case slices.Contains(m.SelectedFiles, path):
 			m.err = errors.New(
 				"you have this file already. kindly select another file or save your selection",
 			)
 			return m, tea.Batch(cmd, clearErrorAfter(2*time.Second))
-		} else {
+		case slices.Contains(m.disallowed_files, path):
+			m.err = errors.New(
+				"this file is already marked for deletion, please select another",
+			)
+			return m, tea.Batch(cmd, clearErrorAfter(2*time.Second))
+		default:
 			m.SelectedFiles = append(m.SelectedFiles, path)
 		}
 	}
@@ -99,24 +109,22 @@ func (m file_picker_model) View() string {
 	return s.String()
 }
 
-func initialModel(dir string, title string, allowed_types []string) file_picker_model {
+func initialModel(dir string, title string, disallowed_files []string) file_picker_model {
 	fp := filepicker.New()
 	fp.CurrentDirectory = dir
-	fp.AllowedTypes = allowed_types
 
 	im := file_picker_model{
-		filepicker: fp,
-		title:      title,
+		filepicker:       fp,
+		title:            title,
+		disallowed_files: disallowed_files,
 	}
 
 	return im
 }
 
-func FileTreeSelect(dir string, title string, allowed_types []string) file_picker_model {
-	// We want the option of excluding already select files.
-	// We can pass exact filepaths to allowed_types to ensure only these are
-	// selectable.
-	m := initialModel(dir, title, allowed_types)
+func FileTreeSelect(dir string, title string, disallowed_files []string) file_picker_model {
+	// We want the option of excluding already selected files.
+	m := initialModel(dir, title, disallowed_files)
 
 	tm, _ := tea.NewProgram(&m).Run()
 	mm := tm.(file_picker_model)
