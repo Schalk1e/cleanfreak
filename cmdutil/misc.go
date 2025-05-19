@@ -38,6 +38,16 @@ func StringDifference(a []string, b []string) []string {
 	return difference
 }
 
+// MapValuesFlatten takes a generic map's values and flattens the values
+// into a single slice of generic type V.
+func MapValuesFlatten[K comparable, V any](m map[K][]V) []V {
+	var result []V
+	for _, v := range m {
+		result = append(result, v...)
+	}
+	return result
+}
+
 // ByteStringParse converts a numeric string representing bytes into a human-readable gigabyte (GB) string.
 // Example: "1100000000" -> "1.10GB"
 func ByteStringParse(decimal_byte_str string) string {

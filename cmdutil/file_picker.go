@@ -122,15 +122,18 @@ func initialModel(dir string, title string, disallowed_files []string) file_pick
 	return im
 }
 
-func FileTreeSelect(dir string, title string, disallowed_files []string) file_picker_model {
+func FileTreeSelect(dir string, title string, disallowed_files []string, print_ bool) file_picker_model {
 	// We want the option of excluding already selected files.
 	m := initialModel(dir, title, disallowed_files)
 
 	tm, _ := tea.NewProgram(&m).Run()
 	mm := tm.(file_picker_model)
-	fmt.Println("\n  You selected: " + m.filepicker.Styles.Selected.Render(
-		strconv.Itoa(len(mm.SelectedFiles))+" file(s) in total.") + "\n",
-	)
+
+	if print_ {
+		fmt.Println("\n  You selected: " + m.filepicker.Styles.Selected.Render(
+			strconv.Itoa(len(mm.SelectedFiles))+" file(s) in total.") + "\n",
+		)
+	}
 
 	// Return file_picker_model struct after user exits or saves.
 	return mm

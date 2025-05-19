@@ -1,9 +1,6 @@
 package plan
 
 import (
-	"fmt"
-
-	"github.com/Schalk1e/cleanfreak/cmdutil"
 	"github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
 )
@@ -32,15 +29,14 @@ later, or it can be applied directly after the build with the apply flag.`,
 		// Add state checker.
 		// Add plan apply.
 
-		deletion := cmdutil.FileTreeSelect(
-			d.GetDownloads(), "Mark files for deletion:", []string{},
-		)
+		p := PlanFiles{
+			dir: d.GetDownloads(),
+			// Hardcode this or now...
+			move_dirs: []string{"a", "b"},
+		}
 
-		move := cmdutil.FileTreeSelect(
-			d.GetDownloads(), "Mark files to be moved:", deletion.SelectedFiles,
-		)
+		p.ToDelete()
+		p.ToMove()
 
-		fmt.Println(deletion)
-		fmt.Println(move)
 	},
 }
