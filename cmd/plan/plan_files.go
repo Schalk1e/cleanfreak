@@ -17,17 +17,6 @@ type PlanFiles struct {
 	to_move   map[string][]string
 }
 
-func (p PlanFiles) alreadySelected() []string {
-	if p.to_move == nil {
-		p.to_move = make(map[string][]string)
-	}
-	if p.to_delete == nil {
-		p.to_delete = []string{}
-	}
-
-	return append(cmdutil.MapValuesFlatten(p.to_move), p.to_delete...)
-}
-
 func (p *PlanFiles) ToDelete() {
 	p.to_delete = cmdutil.FileTreeSelect(
 		p.dir,
@@ -61,6 +50,25 @@ func (p PlanFiles) OutputPlan(path string) {
 	}
 }
 
+func (p PlanFiles) PrintPlan() {
+	fmt.Printf(
+		"\n You selected: %s file(s) to delete and %s file(s) to move.\n\n",
+		p.deleteCount(),
+		p.moveCount(),
+	)
+}
+
+func (p PlanFiles) alreadySelected() []string {
+	if p.to_move == nil {
+		p.to_move = make(map[string][]string)
+	}
+	if p.to_delete == nil {
+		p.to_delete = []string{}
+	}
+
+	return append(cmdutil.MapValuesFlatten(p.to_move), p.to_delete...)
+}
+
 func (p PlanFiles) deleteCount() string {
 	return strconv.Itoa(len(p.to_delete))
 }
@@ -73,12 +81,4 @@ func (p PlanFiles) moveCount() string {
 	}
 
 	return strconv.Itoa(move_count)
-}
-
-func (p PlanFiles) PrintPlan() {
-	fmt.Printf(
-		"\n You selected: %s file(s) to delete and %s file(s) to move.\n\n",
-		p.deleteCount(),
-		p.moveCount(),
-	)
 }
