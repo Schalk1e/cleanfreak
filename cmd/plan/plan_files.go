@@ -2,8 +2,12 @@ package plan
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"strconv"
 
 	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
+	"gopkg.in/yaml.v2"
 )
 
 type PlanFiles struct {
@@ -46,7 +50,35 @@ func (p *PlanFiles) ToMove() {
 	}
 }
 
-// TODO: Add a plan print section here that outlines the plan.
-// Also a method or two that allows us to output this plan as yaml for later.
-// Consider using the bubbletea style?
-// What about some sort of a printing interface to switch between.
+func (p PlanFiles) OutputPlan(path string) {
+	plan, err := yaml.Marshal(&p)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := os.WriteFile(path, plan, 0666); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func (p PlanFiles) deleteCount() string {
+	return strconv.Itoa(len(p.to_delete))
+}
+
+func (p PlanFiles) moveCount() string {
+	var move_count int
+
+	for _, files := range p.to_move {
+		move_count += len(files)
+	}
+
+	return strconv.Itoa(move_count)
+}
+
+func (p PlanFiles) PrintPlan() {
+	fmt.Printf(
+		"\n You selected: %s file(s) to delete and %s file(s) to move.\n\n",
+		p.deleteCount(),
+		p.moveCount(),
+	)
+}

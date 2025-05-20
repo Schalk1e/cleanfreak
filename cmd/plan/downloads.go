@@ -38,5 +38,18 @@ later, or it can be applied directly after the build with the apply flag.`,
 		p.ToDelete()
 		p.ToMove()
 
+		// Print plan for the user
+		p.PrintPlan()
+
+		// Ask here whether the user would like to save the plan or execute it
+		// now.
+
+		// If saved, we want a list of plans with a state that the user can
+		// choose to view or execute. The lipgloss components would be amazing
+		// for browsing and or editing plans.
+
+		// Perhaps, for this PR we only add the option to execute immediately
+		// and then we can deal with plan caching later.
+
 	},
 }
