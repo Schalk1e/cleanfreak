@@ -2,11 +2,14 @@ package plan
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/Schalk1e/cleanfreak/cmdutil"
 	"github.com/Schalk1e/cleanfreak/core"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"path/filepath"
 )
 
 var apply bool
@@ -19,18 +22,25 @@ This command will prompt the user to construct a plan for whichever files are
 found in the User's downloads folder. It will either save the plan to be applied
 later, or it can be applied directly after the build with the apply flag.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		var move_dirs []string
+
 		d := core.Dir{}
 		subdirs := viper.GetStringSlice("subdirs")
+		rootdir := viper.GetString("directory")
+		homedir, _ := os.UserHomeDir()
+
+		for _, subdir := range subdirs {
+			move_dirs = append(move_dirs, filepath.Join(homedir, rootdir, subdir))
+		}
 
 		p := PlanFiles{
 			dir:       d.GetDownloads(),
-			move_dirs: subdirs,
+			move_dirs: move_dirs,
 		}
 
 		p.ToDelete()
 		p.ToMove()
 
-		// Print plan for the user
 		p.PrintPlan()
 
 		// Ask here whether the user would like to save the plan or execute it
@@ -50,7 +60,30 @@ later, or it can be applied directly after the build with the apply flag.`,
 			).Choice
 			switch choice {
 			case "Y":
-				// Do plan
+				// Do deletes
+				for _, file := range p.FilesToDelete {
+					c := core.Clean{
+						SourceFile: file,
+					}
+					err := c.FileDelete()
+					if err != nil {
+						fmt.Println("Error removing file: ", err)
+					}
+				}
+				// Do moves
+				for k, v := range p.FilesToMove {
+					for _, file := range v {
+						c := core.Clean{
+							SourceFile: file,
+							TargetFile: filepath.Join(k, filepath.Base(file)),
+						}
+						err := c.FileTransfer()
+						if err != nil {
+							fmt.Println("Error moving file: ", err)
+						}
+					}
+				}
+				// Print the executed plan here!
 			case "N":
 				fmt.Println("\nSkipping apply.")
 			}
