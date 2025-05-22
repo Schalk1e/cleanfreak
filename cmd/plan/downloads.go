@@ -24,7 +24,17 @@ later, or it can be applied directly after the build with the apply flag.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var move_dirs []string
 
+		// Check if there's anything to do first
+
 		d := core.Dir{}
+
+		diagnose_text := "No files in the Downloads folder."
+		if core.DirEmpty(d.GetDownloads()) {
+			cmdutil.PrintDiagnoseSuccess(diagnose_text)
+			cmdutil.PrintOrder()
+			return
+		}
+
 		subdirs := viper.GetStringSlice("subdirs")
 		rootdir := viper.GetString("directory")
 		homedir, _ := os.UserHomeDir()
@@ -42,16 +52,6 @@ later, or it can be applied directly after the build with the apply flag.`,
 		p.ToMove()
 
 		p.PrintPlan()
-
-		// Ask here whether the user would like to save the plan or execute it
-		// now.
-
-		// If saved, we want a list of plans with a state that the user can
-		// choose to view or execute. The lipgloss components would be amazing
-		// for browsing and or editing plans.
-
-		// Perhaps, for this PR we only add the option to execute immediately
-		// and then we can deal with plan caching later.
 
 		if apply {
 			// Ask whether they want to apply
@@ -83,7 +83,7 @@ later, or it can be applied directly after the build with the apply flag.`,
 						}
 					}
 				}
-				// Print the executed plan here!
+				cmdutil.PrintApplied()
 			case "N":
 				fmt.Println("\nSkipping apply.")
 			}
