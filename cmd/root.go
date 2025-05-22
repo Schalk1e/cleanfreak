@@ -7,7 +7,9 @@ import (
 	"fmt"
 	"os"
 
-	cmdutil "github.com/Schalk1e/cleanfreak/cmdutil"
+	"github.com/Schalk1e/cleanfreak/cmd/clean"
+	"github.com/Schalk1e/cleanfreak/cmd/plan"
+	"github.com/Schalk1e/cleanfreak/cmdutil"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -16,18 +18,30 @@ import (
 var banner string
 
 var cfgFile string
-var rootCmd = &cobra.Command{
+var RootCmd = &cobra.Command{
 	Use:   "cf",
 	Short: "Welcome to Cleanfreak! An opinionated workspace organisation and cleaning utility.",
 	Long:  banner,
 }
 
 func Execute() {
-	cobra.CheckErr(rootCmd.Execute())
+	cobra.CheckErr(RootCmd.Execute())
 }
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cleanfreak.yaml)")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cleanfreak.yaml)")
+	RootCmd.AddCommand(diagnoseCmd)
+	RootCmd.AddCommand(listCmd)
+	listCmd.AddCommand(itemsCmd)
+	RootCmd.AddCommand(initCmd)
+	RootCmd.AddCommand(clean.CleanCmd)
+	clean.CleanCmd.AddCommand(clean.AllCmd)
+	clean.CleanCmd.AddCommand(clean.DownloadsCmd)
+	clean.CleanCmd.AddCommand(clean.DesktopCmd)
+	clean.CleanCmd.AddCommand(clean.CacheCmd)
+	clean.CleanCmd.AddCommand(clean.TrashCmd)
+	RootCmd.AddCommand(plan.PlanCmd)
+	plan.PlanCmd.AddCommand(plan.DownloadsCmd)
 }
 
 func initConfig() {

@@ -1,4 +1,4 @@
-package cmd
+package clean
 
 import (
 	"log"
@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var trashCmd = &cobra.Command{
+var TrashCmd = &cobra.Command{
 	Use:   "trash",
 	Short: "Runs cleanfreak on the trash folder.",
 	Long:  "This command will clean the user's trash folder.",
@@ -56,8 +56,4 @@ func CleanTrash(target string) {
 		}
 		cmdutil.PrintDeleted()
 	}
-}
-
-func init() {
-	cleanCmd.AddCommand(trashCmd)
 }

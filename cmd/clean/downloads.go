@@ -1,4 +1,4 @@
-package cmd
+package clean
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var downloadsCmd = &cobra.Command{
+var DownloadsCmd = &cobra.Command{
 	Use:   "downloads",
 	Short: "Runs cleanfreak on the downloads folder.",
 	Long: `
@@ -102,8 +102,4 @@ func CleanDownloads(target string) {
 			break
 		}
 	}
-}
-
-func init() {
-	cleanCmd.AddCommand(downloadsCmd)
 }

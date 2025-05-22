@@ -18,6 +18,36 @@ func IsIn(a string, list []string) bool {
 	return false
 }
 
+// StringDifference finds string elements that are present in slice a
+// but not present in slice b. It does so by pre-allocating a map with
+// keys set to the strings in b. This creates a lookup to check the
+// elements of a against.
+func StringDifference(a []string, b []string) []string {
+	InB := make(map[string]bool, len(b))
+	for _, s := range b {
+		InB[s] = true
+	}
+
+	difference := []string{}
+	for _, s := range a {
+		if !InB[s] {
+			difference = append(difference, s)
+		}
+	}
+
+	return difference
+}
+
+// MapValuesFlatten takes a generic map's values and flattens the values
+// into a single slice of generic type V.
+func MapValuesFlatten[K comparable, V any](m map[K][]V) []V {
+	var result []V
+	for _, v := range m {
+		result = append(result, v...)
+	}
+	return result
+}
+
 // ByteStringParse converts a numeric string representing bytes into a human-readable gigabyte (GB) string.
 // Example: "1100000000" -> "1.10GB"
 func ByteStringParse(decimal_byte_str string) string {
