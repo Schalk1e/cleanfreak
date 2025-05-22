@@ -111,7 +111,9 @@ func (m file_picker_model) View() string {
 
 func initialModel(dir string, title string, disallowed_files []string) file_picker_model {
 	fp := filepicker.New()
+
 	fp.CurrentDirectory = dir
+	fp.DirAllowed = true
 
 	im := file_picker_model{
 		filepicker:       fp,
