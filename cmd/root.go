@@ -3,7 +3,6 @@
 package cmd
 
 import (
-	_ "embed"
 	"fmt"
 	"os"
 
@@ -14,13 +13,12 @@ import (
 	"github.com/spf13/viper"
 )
 
-//go:embed embed/banner.txt
 var banner string
 
 var cfgFile string
 var RootCmd = &cobra.Command{
 	Use:   "cf",
-	Short: "Welcome to Cleanfreak! An opinionated workspace organisation and cleaning utility.",
+	Short: "Welcome to cleanfreak, a basic workspace organisation utility.",
 	Long:  banner,
 }
 
