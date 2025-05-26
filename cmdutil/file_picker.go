@@ -10,7 +10,11 @@ import (
 
 	"github.com/charmbracelet/bubbles/filepicker"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
+
+var cyan_ = lipgloss.Color("51")
+var white_ = lipgloss.Color("15")
 
 type file_picker_model struct {
 	// The fp model
@@ -112,6 +116,9 @@ func (m file_picker_model) View() string {
 func initialModel(dir string, title string, disallowed_files []string) file_picker_model {
 	fp := filepicker.New()
 	fp.CurrentDirectory = dir
+	// Match cursor style to survey theme for now.
+	fp.Styles.Cursor = fp.Styles.Cursor.Foreground(white_)
+	fp.Styles.Selected = fp.Styles.Selected.Foreground(cyan_)
 
 	im := file_picker_model{
 		filepicker:       fp,
