@@ -116,6 +116,7 @@ func (m file_picker_model) View() string {
 func initialModel(dir string, title string, disallowed_files []string) file_picker_model {
 	fp := filepicker.New()
 	fp.CurrentDirectory = dir
+	fp.DirAllowed = true
 	// Match cursor style to survey theme for now.
 	fp.Styles.Cursor = fp.Styles.Cursor.Foreground(white_)
 	fp.Styles.Selected = fp.Styles.Selected.Foreground(cyan_)
