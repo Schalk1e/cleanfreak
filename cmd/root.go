@@ -18,7 +18,7 @@ var banner string
 var cfgFile string
 var RootCmd = &cobra.Command{
 	Use:   "cf",
-	Short: "Welcome to cleanfreak, a basic workspace organisation utility.",
+	Short: "A basic workspace organisation utility.",
 	Long:  banner,
 }
 

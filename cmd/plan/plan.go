@@ -8,7 +8,7 @@ import (
 
 var PlanCmd = &cobra.Command{
 	Use:   "plan",
-	Short: "Prompts the user to construct a plan (in yaml?) to execute later.",
+	Short: "Prompts the user to construct a plan to execute.",
 	Long: `You might want to defer actions to later, or perhaps not take action
 on every file that is found. In this case, it is best to construct a clean plan
 with this command to execute later.`,
