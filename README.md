@@ -7,7 +7,7 @@
     <img src="https://github.com/Schalk1e/cleanfreak/workflows/lint/badge.svg" width="110" />
     <img src="https://github.com/Schalk1e/cleanfreak/workflows/release/badge.svg" width="135" />
     <img src="https://github.com/Schalk1e/cleanfreak/workflows/test/badge.svg" width="115" />
-    <img src="https://img.shields.io/badge/version-0.1.3.dev0-orange" width="105"/>
+    <img src="https://img.shields.io/badge/version-0.1.3.dev0-orange" width="145"/>
   </p>
 </div>
 
