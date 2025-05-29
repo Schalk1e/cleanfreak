@@ -12,14 +12,14 @@ import (
 	"path/filepath"
 )
 
-var downloads_apply bool
+var desktop_apply bool
 
-var DownloadsCmd = &cobra.Command{
-	Use:   "downloads",
+var DesktopCmd = &cobra.Command{
+	Use:   "desktop",
 	Short: "Runs a cleanfreak plan on the downloads folder.",
 	Long: `
 This command will prompt the user to construct a plan for whichever files are
-found in the User's downloads folder. It will either save the plan to be applied
+found in the User's desktop folder. It will either save the plan to be applied
 later, or it can be applied directly after the build with the apply flag.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		var move_dirs []string
@@ -28,8 +28,8 @@ later, or it can be applied directly after the build with the apply flag.`,
 
 		d := core.Dir{}
 
-		diagnose_text := "No files in the Downloads folder."
-		if core.DirEmpty(d.GetDownloads()) {
+		diagnose_text := "No files in the Desktop folder."
+		if core.DirEmpty(d.GetDesktop()) {
 			cmdutil.PrintDiagnoseSuccess(diagnose_text)
 			cmdutil.PrintOrder()
 			return
@@ -44,7 +44,7 @@ later, or it can be applied directly after the build with the apply flag.`,
 		}
 
 		p := PlanFiles{
-			dir:       d.GetDownloads(),
+			dir:       d.GetDesktop(),
 			move_dirs: move_dirs,
 		}
 
@@ -53,7 +53,7 @@ later, or it can be applied directly after the build with the apply flag.`,
 
 		p.PrintPlan()
 
-		if downloads_apply {
+		if desktop_apply {
 			// Ask whether they want to apply
 			choice := cmdutil.ListResult(
 				[]string{"Y", "N"}, "Would you like to apply the plan now?",
@@ -92,7 +92,7 @@ later, or it can be applied directly after the build with the apply flag.`,
 }
 
 func init() {
-	DownloadsCmd.Flags().BoolVar(
-		&downloads_apply, "apply", false, "Whether to prompt the user to apply the plan.",
+	DesktopCmd.Flags().BoolVar(
+		&desktop_apply, "apply", false, "Whether to prompt the user to apply the plan.",
 	)
 }
