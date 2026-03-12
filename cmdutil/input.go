@@ -44,12 +44,27 @@ func FileSurvey(filename string) string {
 //
 // This function displays a list of directories and returns the user's choice.
 func DirSurvey(opts []string) string {
+	filteredOpts := []string{}
+	for _, opt := range opts {
+		parts := strings.Split(opt, "/")
+		exclude := false
+		for _, part := range parts {
+			if strings.HasPrefix(part, ".") {
+				exclude = true
+				break
+			}
+		}
+		if !exclude {
+			filteredOpts = append(filteredOpts, opt)
+		}
+	}
+
 	dirSurvey := []*survey.Question{
 		{
 			Name: "dir",
 			Prompt: &survey.Select{
 				Message: fmt.Sprintln("Select target:"),
-				Options: opts,
+				Options: filteredOpts,
 			},
 		},
 	}
