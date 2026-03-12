@@ -59,6 +59,10 @@ Or allow the system to execute all tasks bu running:
 
 `cf clean all`
 
+## Design
+
+For architecture, design principles, and configuration details, see [DESIGN.md](DESIGN.md).
+
 # TODO
 
 - [x] Versioned Release
